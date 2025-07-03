@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<p th:text="${member.name}">name</p>
+<p th:text="${member.surname}">surname</p>
+<p th:text="${member.email}">email</p><br/>
+
+<form th:action="@{/members/{id}/edit(id=${member.memberId})}">
+    <input type="submit" value="Edit">
+</form><br/>
+
+<form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+</body>
+</html>

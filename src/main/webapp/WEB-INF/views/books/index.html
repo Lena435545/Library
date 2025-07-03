@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All books</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>List of books</h1><br/><br/>
+
+<div class="book-list">
+    <div class="book-card" th:each="book : ${books}">
+        <img src="/images/default-book.png" alt="Book Cover">
+        <div class="book-info">
+            <p th:text="${book.name}">Book Title</p>
+            <p th:text="${book.author} + ', ' + ${book.year}">Author, Year</p>
+        </div>
+        <a th:href="@{/books/{id}(id=${book.bookId})}" class="book-link">Details</a>
+    </div>
+</div>
+
+<div class="button-middle">
+    <form th:action="@{/books/new}">
+        <input type="submit" value="Create"/>
+    </form>
+</div>
+
+</body>
+</html>

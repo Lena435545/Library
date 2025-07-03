@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit member</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/members/{id}(id=${member.memberId})}" th:object="${member}">
+
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <label for="surname">Enter surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+
+    <label for="email"> Enter E-Mail: </label>
+    <input type="text" th:field="*{email}" id="email"/><br/>
+
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

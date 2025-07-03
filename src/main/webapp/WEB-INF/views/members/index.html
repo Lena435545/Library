@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All members</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>List of members </h1>
+<div class="list" th:each="member : ${members}">
+    <a th:href="@{/members/{id}(id=${member.memberId})}"
+       th:text="${member.name} + ' ' + ${member.surname}">member</a>
+</div>
+<br/>
+
+<div class="button-middle">
+    <form th:action="@{/members/new}">
+        <input type="submit" value="Create"/>
+    </form>
+</div>
+
+
+</body>
+</html>
