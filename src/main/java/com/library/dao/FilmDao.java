@@ -18,4 +18,10 @@ public class FilmDao {
     public List<Film> index() {
         return jdbcTemplate.query("SELECT * FROM Film", new BeanPropertyRowMapper<>(Film.class));
     }
+
+    public Film show(int id) {
+        return jdbcTemplate.query("SELECT * FROM Film WHERE film_id=?", new Object []{id},
+                new BeanPropertyRowMapper<>(Film.class))
+                .stream().findAny().orElse(null);
+    }
 }
