@@ -1,26 +1,26 @@
 package com.library.models;
 
 public class Film {
-    private int film_id;
-    private int member_id;
+    private int filmId;
+   private Integer memberId;
     private String name;
     private String director;
     private int year;
 
-    public int getFilm_id() {
-        return film_id;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
-    public int getMember_id() {
-        return member_id;
+    public Integer getMemberId() {
+        return memberId;
     }
 
-    public void setMember_id(int member_id) {
-        this.member_id = member_id;
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 
     public String getName() {
@@ -47,9 +47,9 @@ public class Film {
         this.year = year;
     }
 
-    public Film(int film_id, int member_id, String name, String director, int year) {
-        this.film_id = film_id;
-        this.member_id = member_id;
+    public Film(int filmId, Integer memberId, String name, String director, int year) {
+        this.filmId = filmId;
+        this.memberId = memberId;
         this.name = name;
         this.director = director;
         this.year = year;

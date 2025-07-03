@@ -2,7 +2,7 @@ package com.library.models;
 
 public class Book {
     private int bookId;
-    private int clientId;
+    private Integer memberId;
     private String name;
     private String author;
     private int year;
@@ -15,12 +15,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Integer getMemberId() {
+        return memberId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 
     public String getName() {
@@ -47,9 +47,9 @@ public class Book {
         this.year = year;
     }
 
-    public Book(int bookId, int clientId, String name, String author, int year) {
+    public Book(int bookId, Integer memberId, String name, String author, int year) {
         this.bookId = bookId;
-        this.clientId = clientId;
+        this.memberId = memberId;
         this.name = name;
         this.author = author;
         this.year = year;
