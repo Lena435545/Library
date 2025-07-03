@@ -72,6 +72,12 @@
       <artifactId>postgresql</artifactId>
       <version>42.7.7</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>9.0.1.Final</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>SpringMVCD</finalName>

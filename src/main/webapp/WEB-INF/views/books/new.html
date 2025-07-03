@@ -11,12 +11,15 @@
 
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
     <label for="author">Enter author: </label>
     <input type="text" th:field="*{author}" id="author"/>
+    <div class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</div>
 
     <label for="year">Enter year: </label>
     <input type="text" th:field="*{year}" id="year"/><br/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 
     <input type="submit" value="Create"/>
 </form>

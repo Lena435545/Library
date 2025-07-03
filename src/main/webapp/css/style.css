@@ -104,4 +104,12 @@ input[type="submit"]:hover{
     margin-top:10px;
 }
 
+.error {
+    color: #d9534f;
+    font-size: 14px;
+    font-family: Segoe UI, sans-serif;
+    width: 300px;
+    margin-bottom: 6px;
+}
+
 

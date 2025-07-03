@@ -2,9 +2,11 @@ package com.library.controllers;
 
 import com.library.dao.MemberDao;
 import com.library.models.Member;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,11 @@ public class MemberController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("member") Member member){
+    public String create(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors())
+            return ("members/new");
+
         memberDao.save(member);
         return ("redirect:/members");
     }
@@ -49,7 +55,12 @@ public class MemberController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("member") Member member, @PathVariable("id") int id){
+    public String update(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult,
+                         @PathVariable("id") int id){
+
+        if(bindingResult.hasErrors())
+            return ("members/edit");
+
         memberDao.update(id, member);
         return ("redirect:/members");
     }

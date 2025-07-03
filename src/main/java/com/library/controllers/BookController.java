@@ -2,8 +2,10 @@ package com.library.controllers;
 
 import com.library.dao.BookDao;
 import com.library.models.Book;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -34,7 +36,10 @@ public class BookController {
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("book") Book book){
+    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors())
+            return ("books/new");
         bookDao.save(book);
         return ("redirect:/books");
     }
@@ -46,7 +51,12 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book){
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult){
+
+        if(bindingResult.hasErrors())
+            return ("books/edit");
+
         bookDao.update(id, book);
         return ("redirect:/books");
     }
