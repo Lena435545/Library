@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form>
+<form th:method="POST" th:action="@{/films/new}">
 
     <label for="name">Enter name: </label>
     <input type="text"  th:field="*{film.name}" id="name"/>

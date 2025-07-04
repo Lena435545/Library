@@ -24,4 +24,18 @@ public class FilmDao {
                 new BeanPropertyRowMapper<>(Film.class))
                 .stream().findAny().orElse(null);
     }
+
+    public void save(Film film){
+        jdbcTemplate.update("INSERT INTO Film (name, director, year) VALUES (?, ?, ?)", film.getName(),
+                film.getDirector(), film.getYear());
+    }
+
+    public void update(Film film, int id) {
+        jdbcTemplate.update("UPDATE Film SET name=?, director=?, year=? WHERE film_id=?", film.getName(),
+                film.getDirector(), film.getYear(), id);
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM Film WHERE film_id=?", id);
+    }
 }

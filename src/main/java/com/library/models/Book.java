@@ -3,6 +3,7 @@ package com.library.models;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.NumberFormat;
 
 public class Book {
     private int bookId;
@@ -16,6 +17,7 @@ public class Book {
     private String author;
 
     @Min(value=1900, message="Year should be greater als 1900")
+    @NumberFormat
     private int year;
 
     public int getBookId() {

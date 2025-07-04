@@ -1,12 +1,16 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Georgia, serif;
     font-weight: bold;
-    background-color: #e0f7f1;
-    color: #6c757d;
+    background-image: url("/images/wooden-background.png");
+    background-size: cover;
+    background-attachment: fixed;
+    color: #5b4636;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
-    color: #b497d6;
+    color: #a67c52;
     text-align: center;
     font-size: 32px;
     margin-bottom: 20px;
@@ -15,11 +19,11 @@ h1 {
 .list {
     display: block;
     margin-bottom: 10px;
-    color:#6c757d;
-
+    color: #5b4636;
 }
-.list a{
+.list a {
     text-decoration: none;
+    color: #5b4636;
 }
 
 a {
@@ -28,21 +32,25 @@ a {
 
 label {
     display: block;
-    color: #3d7d7a;
+    color: #7c5c3b;
     margin-top: 12px;
 }
 
-input[type="text"]{
+input[type="text"] {
     width: 300px;
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #bfae9c;
+    background-color: #fcf8f2;
+    color: #5b4636;
     margin-bottom: 12px;
+    font-family: inherit;
+    font-weight: inherit;
 }
 
-input[type="submit"]{
-    background-color: 	#4c9694;
-    color: #444444;
+input[type="submit"] {
+    background-color: #8d6e63;
+    color: #fffaf0;
     border: none;
     border-radius: 8px;
     padding: 10px 20px;
@@ -52,8 +60,8 @@ input[type="submit"]{
     font-weight: inherit;
 }
 
-input[type="submit"]:hover{
-    background-color: #3c7f7e;
+input[type="submit"]:hover {
+    background-color: #7b5d50;
 }
 
 .book-list {
@@ -64,12 +72,12 @@ input[type="submit"]:hover{
 }
 
 .book-card {
-    background-color: #e6f7f5;
-    border: 1px solid #cce7e3;
+    background-color: #fdf8ef;
+    border: 1px solid #d8c3a5;
     border-radius: 10px;
     width: 200px;
     padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(91, 70, 54, 0.1);
 }
 
 .book-card img {
@@ -81,34 +89,35 @@ input[type="submit"]:hover{
 .book-info p {
     margin: 5px 0;
     font-size: 15px;
+    color: #4a3d2d;
+    font-family: 'Georgia', serif;
 }
 
 .book-link {
     display: inline-block;
     margin-bottom: 10px;
-    color: #ffffff;
-    background-color: #5eaaa8;
+    color: #fffaf0;
+    background-color: #a67c52;
     padding: 8px 12px;
     border-radius: 6px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    font-family: 'Georgia', serif;
 }
 
 .book-link:hover {
-    background-color: #4c9694;
+    background-color: #8c6239;
 }
 
-.button-middle{
+.button-middle {
     display: flex;
     justify-content: center;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .error {
-    color: #d9534f;
+    color: #b03a2e;
     font-size: 14px;
-    font-family: Segoe UI, sans-serif;
+    font-family: 'Georgia', serif;
     margin-bottom: 6px;
 }
-
-

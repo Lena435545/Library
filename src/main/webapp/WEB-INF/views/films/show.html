@@ -8,5 +8,8 @@
 <p th:text="${film.name}">name</p>
 <p th:text="${film.director}">director</p>
 <p th:text="${film.year}">year</p>
+<form th:method="DELETE" th:action="@{/films/{id}(id=${film.filmId})}">
+    <input type="submit" value="Delete"/>
+</form>
 </body>
 </html>
