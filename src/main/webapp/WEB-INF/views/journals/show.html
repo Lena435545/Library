@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Journal</title>
+</head>
+<body>
+
+<p th:text="${journal.thematic}">Thematic</p>
+<p th:text="${journal.name}">Name</p>
+<p th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>
+
+<form th:action="@{/journals/{id}/edit(id=${journal.journalId})}">
+    <input type="submit" value="Edit"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/journals/{id}(id=${journal.journalId})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Edit journal</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/journals/{id}(id=${journal.journalId})}" th:object="${journal}">
+
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <label for="thematic">Enter thematic: </label>
+    <input type="text" th:field="*{thematic}" id="thematic"/>
+
+    <label for="month">Enter month: </label>
+    <input type="text" th:field="*{month}" id="month"/>
+
+    <label for="year">Enter year: </label>
+    <input type="text" th:field="*{year}" id="year"/>
+
+    <input type="submit" value="Update"/>
+</form>
+
+</body>
+</html>

@@ -29,12 +29,12 @@ public class FilmController {
     }
 
     @GetMapping("/new")
-    public String newFilm(@ModelAttribute("film") Film film) {
+    public String create(@ModelAttribute("film") Film film) {
         return ("films/new");
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("film") Film film) {
+    public String save(@ModelAttribute("film") Film film) {
         filmDao.save(film);
         return ("redirect:/films");
     }

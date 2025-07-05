@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create journal</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/journals/new}" th:object="${journal}">
+
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <label for="thematic">Enter thematic: </label>
+    <input type="text" th:field="*{thematic}" id="thematic"/>
+
+    <label for="month">Enter month: </label>
+    <input type="text" th:field="*{month}" id="month"/>
+
+    <label for="year">Enter year: </label>
+    <input type="text" th:field="*{year}" id="year"/>
+
+    <input type="submit" value="Create"/>
+</form>
+
+</body>
+</html>

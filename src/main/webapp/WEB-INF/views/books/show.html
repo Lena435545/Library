@@ -9,6 +9,7 @@
 
 <p th:text="${book.name}">name</p>
 <p th:text="${book.author} + ', ' + ${book.year}">author, year</p>
+
 <form th:action="@{/books/{id}/edit(id=${book.bookId})}">
     <input type="submit" value="Edit"/>
 </form><br/>

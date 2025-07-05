@@ -21,10 +21,6 @@ h1 {
     margin-bottom: 25px;
 }
 
-a {
-    cursor: pointer;
-}
-
 label {
     display: block;
     color: #2c2c2c;
@@ -57,6 +53,7 @@ input[type="submit"] {
     font-family: 'Bradley Hand ITC', sans-serif;
     font-weight: 700;
     letter-spacing: 1px;
+    margin-top: 10px;
 }
 
 input[type="submit"]:hover {
@@ -105,6 +102,12 @@ input[type="submit"]:hover {
 
 .item-link:hover {
     background-color: #3a3a3a;
+}
+
+.button-middle {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
 }
 
 

@@ -31,12 +31,12 @@ public class BookController {
     }
 
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("book") Book book){
+    public String create(@ModelAttribute("book") Book book){
         return ("books/new");
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+    public String save(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
 
         if(bindingResult.hasErrors())
             return ("books/new");

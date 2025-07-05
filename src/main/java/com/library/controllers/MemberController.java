@@ -34,12 +34,12 @@ public class MemberController {
     }
 
     @GetMapping("/new")
-    public String newMember(@ModelAttribute("member") Member member) {
+    public String create(@ModelAttribute("member") Member member) {
         return ("members/new");
     }
 
     @PostMapping
-    public String create(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
+    public String save(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
 
         if(bindingResult.hasErrors())
             return ("members/new");
