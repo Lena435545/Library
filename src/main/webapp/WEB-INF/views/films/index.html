@@ -2,16 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of films</title>
+    <title>All films</title>
+    <link rel="stylesheet" href="/css/film.css">
 </head>
 <body>
-Hallooooo
-<div th:each="film : ${films}">
-    <a th:href="@{/films/{id}(id=${film.filmId})}"
-    th:text="${film.name}">
+<h1>List of films</h1>
 
-    </a>
+<div class="item-list">
+    <div class="item-card" th:each="film : ${films}">
+        <img src="/images/default-film.png" alt="Film cover">
+        <div class="item-info">
+            <p th:text="${film.name}"></p>
+            <p th:text="${film.director} + ', ' + ${film.year}"></p>
+        </div>
+        <a class="item-link" th:href="@{/films/{id}(id=${film.filmId})}">Details</a>
+    </div>
 </div>
+
 
 </body>
 </html>

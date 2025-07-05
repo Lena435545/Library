@@ -56,14 +56,14 @@ input[type="submit"]:hover{
     background-color: #3c7f7e;
 }
 
-.book-list {
+.item-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
     gap: 20px;
 }
 
-.book-card {
+.item-card {
     background-color: #e6f7f5;
     border: 1px solid #cce7e3;
     border-radius: 10px;
@@ -72,7 +72,7 @@ input[type="submit"]:hover{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.book-card img {
+.item-card img {
     width: 100%;
     border-radius: 6px;
     margin-bottom: 10px;
@@ -83,7 +83,7 @@ input[type="submit"]:hover{
     font-size: 15px;
 }
 
-.book-link {
+.item-link {
     display: inline-block;
     margin-bottom: 10px;
     color: #ffffff;
@@ -94,7 +94,7 @@ input[type="submit"]:hover{
     transition: background-color 0.3s ease;
 }
 
-.book-link:hover {
+.item-link:hover {
     background-color: #4c9694;
 }
 

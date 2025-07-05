@@ -1,29 +1,24 @@
 body {
     font-family: Georgia, serif;
-    font-weight: bold;
+    font-weight: 400;
     background-image: url("/images/wooden-background.png");
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
     color: #5b4636;
     margin: 0;
     padding: 20px;
 }
 
 h1 {
-    color: #a67c52;
+    color: #2a1b0d;
+    font-family: 'Lucida Calligraphy', sans-serif;
     text-align: center;
     font-size: 32px;
-    margin-bottom: 20px;
-}
-
-.list {
-    display: block;
-    margin-bottom: 10px;
-    color: #5b4636;
-}
-.list a {
-    text-decoration: none;
-    color: #5b4636;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
 }
 
 a {
@@ -33,7 +28,9 @@ a {
 label {
     display: block;
     color: #7c5c3b;
-    margin-top: 12px;
+    margin-top: 14px;
+    font-size:15px;
+    font-style:italic;
 }
 
 input[type="text"] {
@@ -52,48 +49,48 @@ input[type="submit"] {
     background-color: #8d6e63;
     color: #fffaf0;
     border: none;
-    border-radius: 8px;
+    border-radius: 24px;
     padding: 10px 20px;
     font-size: 24px;
     cursor: pointer;
-    font-family: inherit;
-    font-weight: inherit;
+    font-family: 'Lucida Calligraphy', sans-serif;
+    font-weight: 500;
+
 }
 
 input[type="submit"]:hover {
     background-color: #7b5d50;
 }
 
-.book-list {
+.item-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
     gap: 20px;
 }
 
-.book-card {
+.item-card {
     background-color: #fdf8ef;
     border: 1px solid #d8c3a5;
     border-radius: 10px;
     width: 200px;
-    padding: 15px;
+    padding: 16px;
     box-shadow: 0 4px 10px rgba(91, 70, 54, 0.1);
 }
 
-.book-card img {
+.item-card img {
     width: 100%;
     border-radius: 6px;
     margin-bottom: 10px;
 }
 
-.book-info p {
-    margin: 5px 0;
-    font-size: 15px;
+.item-info p {
+    margin: 6px 0;
+    font-size: 16px;
     color: #4a3d2d;
-    font-family: 'Georgia', serif;
 }
 
-.book-link {
+.item-link {
     display: inline-block;
     margin-bottom: 10px;
     color: #fffaf0;
@@ -102,10 +99,10 @@ input[type="submit"]:hover {
     border-radius: 6px;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    font-family: 'Georgia', serif;
+    font-family: inherit;
 }
 
-.book-link:hover {
+.item-link:hover {
     background-color: #8c6239;
 }
 
