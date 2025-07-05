@@ -1,8 +1,10 @@
 📚 Library Management System
 
+
 📝 Project Description
 
 This web application provides a management interface for libraries. It allows registering readers and managing multiple types of media (books, films, magazines).
+
 
 ⚙️ Tech Stack
 
@@ -11,6 +13,7 @@ Java (Spring MVC)
 Thymeleaf, HTML & CSS
 
 PostgreSQL
+
 
 🔑 Features
 
@@ -30,6 +33,7 @@ Form validation with user-friendly error messages
 
 Separate UI themes for each media type
 
+
 🚀 Setup
 
 Clone the repository:
@@ -48,10 +52,8 @@ Access the app in your browser:
 
 http://localhost:8080
 
+
 🧾 License
 
 MIT License
 
-👩‍💻 Author
-
-Created by Lena Manicheva
