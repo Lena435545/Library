@@ -34,7 +34,7 @@ Separate UI themes for each media type
 
 Clone the repository:
 
-git clone https://github.com/your-username/library-app.git
+git clone https://github.com/Lena435545/Library
 
 Set up PostgreSQL:
 
