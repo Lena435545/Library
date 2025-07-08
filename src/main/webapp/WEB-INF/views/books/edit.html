@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit book</title>
-    <link rel="stylesheet" href="/css/book.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/books/{id}(id=${book.bookId})}" th:object="${book}">
+<form class="formular" th:method="PATCH" th:action="@{/books/{id}(id=${book.bookId})}" th:object="${book}">
 
-    <label for="name">Enter name: </label>
+    <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
-    <label for="author">Enter author: </label>
+    <label for="author">Edit author: </label>
     <input type="text" th:field="*{author}" id="author"/>
     <div class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</div>
 
-    <label for="year">Enter year: </label>
+    <label for="year">Edit year: </label>
     <input type="text" th:field="*{year}" id="year"/><br/>
     <div class="error" th:if=" ${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 

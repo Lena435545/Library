@@ -1,5 +1,6 @@
 package com.library.models;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -13,10 +14,10 @@ public class Book {
     @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
     private String name;
 
-    @Size(min=2, max=30, message = "Author should be between 2 and 30 characters")
+    @Max(value = 50, message = "Author should be less than 50 characters")
     private String author;
 
-    @Min(value=1900, message="Year should be greater als 1900")
+    @Min(value=1900, message="Year should be greater than 1900")
     @NumberFormat
     private int year;
 

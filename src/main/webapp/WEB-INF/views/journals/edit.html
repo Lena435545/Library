@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Edit journal</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <form th:method="PATCH" th:action="@{/journals/{id}(id=${journal.journalId})}" th:object="${journal}">
 
-    <label for="name">Enter name: </label>
+    <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
-    <label for="thematic">Enter thematic: </label>
+    <label for="thematic">Edit thematic: </label>
     <input type="text" th:field="*{thematic}" id="thematic"/>
+    <div class="error" th:if="${#fields.hasErrors('thematic')}" th:errors="*{thematic}">Thematic error</div>
 
-    <label for="month">Enter month: </label>
+
+    <label for="month">Edit month: </label>
     <input type="text" th:field="*{month}" id="month"/>
+    <div class="error" th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Month error</div>
 
-    <label for="year">Enter year: </label>
+    <label for="year">Edit year: </label>
     <input type="text" th:field="*{year}" id="year"/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
     <input type="submit" value="Update"/>
 </form>

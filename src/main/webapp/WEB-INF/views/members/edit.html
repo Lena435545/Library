@@ -9,15 +9,15 @@
 
 <form th:method="PATCH" th:action="@{/members/{id}(id=${member.memberId})}" th:object="${member}">
 
-    <label for="name">Enter name: </label>
+    <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
-    <label for="surname">Enter surname: </label>
+    <label for="surname">Edit surname: </label>
     <input type="text" th:field="*{surname}" id="surname"/>
     <div class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
 
-    <label for="email"> Enter E-Mail: </label>
+    <label for="email"> Edit E-Mail: </label>
     <input type="text" th:field="*{email}" id="email"/><br/>
     <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
 

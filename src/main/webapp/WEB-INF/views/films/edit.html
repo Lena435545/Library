@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit film</title>
-    <link rel="stylesheet" href="/css/film.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <form th:method="PATCH" th:action="@{/films/{id}(id=${film.filmId})}" th:object="${film}">
 
-    <label for="name">Enter name: </label>
+    <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
-    <label for="director">Enter director: </label>
+    <label for="director">Edit director: </label>
     <input type="text" th:field="*{director}" id="director"/>
+    <div class="error" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director error</div>
 
-    <label for="year">Enter year: </label>
+    <label for="year">Edit year: </label>
     <input type="text" th:field="*{year}" id="year"/>
-
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="year">Year error</div>
     <input type="submit" value="Update"/>
 </form>
 

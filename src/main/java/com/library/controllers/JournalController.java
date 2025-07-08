@@ -2,8 +2,10 @@ package com.library.controllers;
 
 import com.library.dao.JournalDao;
 import com.library.models.Journal;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -22,7 +24,7 @@ public class JournalController {
     }
 
     @GetMapping("/{id}")
-    public String show(Model model, @PathVariable("id") int id){
+    public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("journal", journalDao.show(id));
         return ("journals/show");
     }
@@ -33,19 +35,26 @@ public class JournalController {
     }
 
     @PostMapping("/new")
-    public String save(@ModelAttribute("journal") Journal journal) {
+    public String save(@ModelAttribute("journal") @Valid Journal journal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return ("journals/new");
+
         journalDao.save(journal);
         return ("redirect:/journals");
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id){
+    public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("journal", journalDao.show(id));
         return ("journals/edit");
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("journal") Journal journal, @PathVariable("id") int id) {
+    public String update(@PathVariable("id") int id, @ModelAttribute("journal") @Valid Journal journal,
+                         BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return ("journals/edit");
+
         journalDao.update(journal, id);
         return ("redirect:/journals");
     }

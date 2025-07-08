@@ -1,13 +1,28 @@
 package com.library.models;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class Journal {
 
     private int journalId;
     private Integer memberId;
+
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 50, message = "Name should be between 2 and 50 characters")
     private String name;
+
+    @Size(max = 50, message = "Thematic should be less than 50 characters")
     private String thematic;
+
+    @Min(value=1, message="Month should be greater than 1")
+    @Max(value=12, message="Month should be less than 12")
     private int month;
-    private int year;
+
+    @Min(value = 1900, message = "Year should be greater than 1900")
+    private Integer year;
 
     public Journal() {
     }
@@ -61,11 +76,11 @@ public class Journal {
         this.month = month;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 }

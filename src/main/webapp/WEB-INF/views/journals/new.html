@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Create journal</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <form th:method="POST" th:action="@{/journals/new}" th:object="${journal}">
 
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
     <label for="thematic">Enter thematic: </label>
     <input type="text" th:field="*{thematic}" id="thematic"/>
+    <div class="error" th:if="${#fields.hasErrors('thematic')}" th:errors="*{thematic}">Thematic error</div>
 
     <label for="month">Enter month: </label>
     <input type="text" th:field="*{month}" id="month"/>
+    <div class="error" th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Month error</div>
 
     <label for="year">Enter year: </label>
     <input type="text" th:field="*{year}" id="year"/>
+    <div class="errors" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
     <input type="submit" value="Create"/>
 </form>

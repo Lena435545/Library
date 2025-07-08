@@ -2,8 +2,10 @@ package com.library.controllers;
 
 import com.library.dao.FilmDao;
 import com.library.models.Film;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -34,7 +36,10 @@ public class FilmController {
     }
 
     @PostMapping("/new")
-    public String save(@ModelAttribute("film") Film film) {
+    public String save(@ModelAttribute("film") @Valid Film film, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return("films/new");
+
         filmDao.save(film);
         return ("redirect:/films");
     }
@@ -46,7 +51,11 @@ public class FilmController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("film") Film film, @PathVariable("id") int id) {
+    public String update(@PathVariable("id") int id, @ModelAttribute("film") @Valid Film film,
+                         BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return ("films/edit");
+
         filmDao.update(film, id);
         return ("redirect:/films");
     }

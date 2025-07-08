@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>New film</title>
-    <link rel="stylesheet" href="/css/film.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/films/new}">
+<form th:method="POST" th:action="@{/films/new}" th:object="${film}">
 
     <label for="name">Enter name: </label>
-    <input type="text"  th:field="*{film.name}" id="name"/>
+    <input type="text"  th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
     <label for="director">Enter director: </label>
-    <input type="text"  th:field="*{film.director}" id="director"/>
+    <input type="text"  th:field="*{director}" id="director"/>
+    <div class="error" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director error</div>
 
     <label for="year">Enter year: </label>
-    <input type="text" th:field="*{film.year}" id="year"/>
+    <input type="text" th:field="*{year}" id="year"/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
     <input type="submit" value="Create"/>
 </form>
