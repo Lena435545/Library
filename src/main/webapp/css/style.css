@@ -11,7 +11,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
 }
 
 .container {
@@ -38,6 +37,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+    margin-bottom: 50px;
 }
 
 .card {
@@ -123,41 +123,41 @@ h1 {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-/*.button-middle {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    margin: 30px 0;*/
-/*}*/
-
 .formular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: white;
     border-radius: 16px;
     padding: 30px;
-    max-width: 500px;
+    max-width: 430px;
     margin: 40px auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-label {
+.formular label {
     display: block;
     color: #444;
     margin-top: 14px;
-    font-size: 15px;
-    font-style: italic;
+    margin-bottom: 5px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
 }
 
-input[type="text"] {
+.formular input[type="text"] {
     width: 100%;
+    max-width: 350px;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: #fff;
     color: #333;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    font-family: inherit;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 16px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    margin-bottom: 16px;
 }
 
 .error {
@@ -166,6 +166,9 @@ input[type="text"] {
     font-family: inherit;
     margin-top: -10px;
     margin-bottom: 10px;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
 }
 
 p {
@@ -205,7 +208,6 @@ p {
 }
 
 .save-btn {
-
 }
 
 

@@ -10,6 +10,28 @@
 <p th:text="${book.name}">name</p>
 <p th:text="${book.author} + ', ' + ${book.year}">author, year</p>
 
+<div th:if="${owner}">
+    <span>This book is currently checked out by: </span>
+    <a th:text="${owner.name+ ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member link</a>
+
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.bookId})}">
+        <input type="submit" value="Return Book"/>
+    </form>
+</div>
+
+<div th:if="${members}">
+    <span>This book is currently available. Assign it to a member: </span>
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.bookId})}">
+        <label for="member">Select a member</label>
+        <select th:object="${member}" th:field="*{memberId}" id="member">
+            <option th:each="member : ${members}" th:value="${member.memberId}"
+                    th:text="${member.name + ' ' + member.surname}">
+            </option>
+        </select>
+        <input type="submit" value="Check Out Book"/>
+    </form>
+</div>
+
 <form th:action="@{/books/{id}/edit(id=${book.bookId})}">
     <input class="btn edit-btn" type="submit" value="Edit"/>
 </form>

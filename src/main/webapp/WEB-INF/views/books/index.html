@@ -10,7 +10,7 @@
 
 <div class="item-list">
     <div class="item-card" th:each="book : ${books}">
-        <img src="/images/default-book.png" alt="Book cover">
+        <img src="/images/books/default-book.png" alt="Book cover">
         <div class="item-info">
             <p th:text="${book.name}">Title</p>
             <p th:text="${book.author} + ', ' + ${book.year}">Author, Year</p>

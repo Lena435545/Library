@@ -30,6 +30,7 @@ public class MemberController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("member", memberDao.show(id));
+        model.addAttribute("books", memberDao.getBooksByMemberId(id));
         return ("members/show");
     }
 

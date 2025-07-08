@@ -19,7 +19,7 @@
 
     <label for="year">Edit year: </label>
     <input type="text" th:field="*{year}" id="year"/>
-    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="year">Year error</div>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
     <input class="btn save-btn" type="submit" value="Save"/>
 </form>

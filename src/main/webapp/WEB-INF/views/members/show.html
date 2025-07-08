@@ -11,9 +11,23 @@
 <p th:text="${member.surname}">surname</p>
 <p th:text="${member.email}">email</p><br/>
 
+<div th:if="${books.isEmpty()}">
+    <p>No books have been checked out by this member</p>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <p>Books: </p>
+<div th:each="book : ${books}">
+    <a th:text="${book.name + ', ' + book.author}"
+       th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
+</div>
+
+</div>
+
 <form th:action="@{/members/{id}/edit(id=${member.memberId})}">
     <input class="btn edit-btn" type="submit" value="Edit">
-</form><br/>
+</form>
+<br/>
 
 <form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
     <input class="btn delete-btn" type="submit" value="Delete"/>
