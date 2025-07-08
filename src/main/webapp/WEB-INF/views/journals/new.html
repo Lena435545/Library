@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<form th:method="POST" th:action="@{/journals/new}" th:object="${journal}">
+<form class="formular" th:method="POST" th:action="@{/journals/new}" th:object="${journal}">
 
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -24,7 +24,7 @@
     <input type="text" th:field="*{year}" id="year"/>
     <div class="errors" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
-    <input type="submit" value="Create"/>
+    <input class="btn save-btn" type="submit" value="Save"/>
 </form>
 
 </body>

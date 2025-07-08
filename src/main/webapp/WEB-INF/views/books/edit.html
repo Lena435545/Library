@@ -21,7 +21,7 @@
     <input type="text" th:field="*{year}" id="year"/><br/>
     <div class="error" th:if=" ${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 
-    <input type="submit" value="Update">
+    <input class="btn save-btn" type="submit" value="Save">
 </form>
 </body>
 </html>

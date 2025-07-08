@@ -15,15 +15,13 @@
             <p th:text="${book.name}">Title</p>
             <p th:text="${book.author} + ', ' + ${book.year}">Author, Year</p>
         </div>
-        <a class="item-link" th:href="@{/books/{id}(id=${book.bookId})}" >Details</a>
+        <a class="item-link" th:href="@{/books/{id}(id=${book.bookId})}">Details</a>
     </div>
 </div>
 
-<div class="button-middle">
-    <form th:action="@{/books/new}">
-        <input type="submit" value="Create"/>
-    </form>
-</div>
+<form th:action="@{/books/new}">
+    <input class="btn create-btn" type="submit" value="Create"/>
+</form>
 
 </body>
 </html>

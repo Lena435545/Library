@@ -7,15 +7,24 @@
 </head>
 <body>
 
-<div th:each="journal: ${journals}">
-  <p th:text="${journal.thematic}">Thematic</p>
-<!--  <p th:text="${journal.name}">Name</p>-->
-<!--  <p th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>-->
-    <a th:href="@{/journals/{id}(id=${journal.journalId})}">Details</a>
+<h1>List of magazines</h1>
+
+<div class="item-list">
+    <div class="item-card" th:each="journal: ${journals}">
+        <img src="/images/default-journal.png" alt="Magazine cover">
+        <div class="item-info">
+            <p th:text="${journal.thematic}">Thematic</p>
+            <p th:text="${journal.name}">Name</p>
+            <p th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>
+        </div>
+
+        <a class="item-link" th:href="@{/journals/{id}(id=${journal.journalId})}">Details</a>
+    </div>
 </div>
 
+
 <form th:action="@{/journals/new}">
-    <input type="submit" value="Create"/>
+    <input class="btn create-btn" type="submit" value="Create"/>
 </form>
 
 </body>

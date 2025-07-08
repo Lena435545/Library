@@ -11,11 +11,11 @@
 <p th:text="${film.year}">year</p>
 
 <form th:action="@{/films/{id}/edit(id=${film.filmId})}">
-    <input type="submit" value="Edit"/>
+    <input class="btn edit-btn" type="submit" value="Edit"/>
 </form>
 
 <form th:method="DELETE" th:action="@{/films/{id}(id=${film.filmId})}">
-    <input type="submit" value="Delete"/>
+    <input class="btn delete-btn" type="submit" value="Delete"/>
 </form>
 
 </body>

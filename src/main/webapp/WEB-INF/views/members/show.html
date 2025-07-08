@@ -12,11 +12,11 @@
 <p th:text="${member.email}">email</p><br/>
 
 <form th:action="@{/members/{id}/edit(id=${member.memberId})}">
-    <input type="submit" value="Edit">
+    <input class="btn edit-btn" type="submit" value="Edit">
 </form><br/>
 
 <form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
-    <input type="submit" value="Delete"/>
+    <input class="btn delete-btn" type="submit" value="Delete"/>
 </form>
 
 </body>

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/films/new}" th:object="${film}">
+<form class="formular " th:method="POST" th:action="@{/films/new}" th:object="${film}">
 
     <label for="name">Enter name: </label>
     <input type="text"  th:field="*{name}" id="name"/>
@@ -21,7 +21,7 @@
     <input type="text" th:field="*{year}" id="year"/>
     <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
-    <input type="submit" value="Create"/>
+    <input class="btn save-btn" type="submit" value="Save"/>
 </form>
 
 </body>

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/members}" th:object="${member}">
+<form class="formular" th:method="POST" th:action="@{/members}" th:object="${member}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -20,7 +20,7 @@
     <input type="text" th:field="*{email}" id="email"/><br/>
     <div class="error" th:if="${#fields.hasErrors('email')}" th:errord="*{email}">Email error</div>
 
-    <input type="submit" value="Create"/>
+    <input class="btn save-btn" type="submit" value="Save"/>
 </form>
 
 </body>

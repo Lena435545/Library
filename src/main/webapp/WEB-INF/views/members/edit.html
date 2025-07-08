@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/members/{id}(id=${member.memberId})}" th:object="${member}">
+<form class="formular" th:method="PATCH" th:action="@{/members/{id}(id=${member.memberId})}" th:object="${member}">
 
     <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -21,7 +21,7 @@
     <input type="text" th:field="*{email}" id="email"/><br/>
     <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
 
-    <input type="submit" value="Update"/>
+    <input class="btn save-btn" type="submit" value="Save"/>
 </form>
 </body>
 </html>
