@@ -11,17 +11,16 @@
 <p th:text="${member.surname}">surname</p>
 <p th:text="${member.email}">email</p><br/>
 
-<div th:if="${books.isEmpty()}">
-    <p>No books have been checked out by this member</p>
+<div class="checkout-box" th:if="${books.isEmpty()}">
+    <p>This member has not checked out any books</p>
 </div>
 
-<div th:if="${!books.isEmpty()}">
+<div class="checkout-box" th:if="${!books.isEmpty()}">
     <p>Books: </p>
-<div th:each="book : ${books}">
-    <a th:text="${book.name + ', ' + book.author}"
-       th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
-</div>
-
+    <div class="checkout-list" th:each="book : ${books}">
+        <a th:text="${book.name + ', ' + book.author}"
+           th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
+    </div>
 </div>
 
 <form th:action="@{/members/{id}/edit(id=${member.memberId})}">

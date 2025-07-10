@@ -156,7 +156,7 @@ h1 {
     color: #333;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 16px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
     margin-bottom: 16px;
 }
 
@@ -209,6 +209,82 @@ p {
 
 .save-btn {
 }
+
+.checkout-btn {
+    padding: 12px 24px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-btn:hover{
+    background-color: #222;
+}
+
+.checkout-box {
+    background-color: rgba(240, 240, 240, 0.3);
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.checkout-box p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.checkout-box a {
+    display: inline-block;
+    margin: 8px 0;
+    font-size: 16px;
+    color: #555555;
+    font-weight: 500;
+}
+
+.checkout-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+}
+
+.checkout-form select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.checkout-form {
+    margin-top: 16px;
+}
+
+.checkout-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+
+
+
 
 
 
