@@ -1,7 +1,9 @@
 package com.library.config;
 
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -31,4 +33,15 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
         aContext.addFilter("hiddenHttpMethodFilter",
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
     }
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
+                null, // Speicherort (null = Standardtemp)
+                10_000_000, // maxUploadSize = 10MB
+                15_000_000, // maxRequestSize
+                0           // fileSizeThreshold = direkt auf Platte
+        );
+        registration.setMultipartConfig(multipartConfigElement);
+    }
+
 }

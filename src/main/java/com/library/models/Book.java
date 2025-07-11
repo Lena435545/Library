@@ -14,12 +14,13 @@ public class Book {
     @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
     private String name;
 
-    @Max(value = 50, message = "Author should be less than 50 characters")
+    @Size(max=50, message = "Author should be less than 50 characters")
     private String author;
 
     @Min(value=1900, message="Year should be greater than 1900")
-    @NumberFormat
     private int year;
+
+    private String imagePath;
 
     public int getBookId() {
         return bookId;
@@ -61,12 +62,21 @@ public class Book {
         this.year = year;
     }
 
-    public Book(int bookId, Integer memberId, String name, String author, int year) {
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Book(int bookId, Integer memberId, String name, String author, int year, String imagePath) {
         this.bookId = bookId;
         this.memberId = memberId;
         this.name = name;
         this.author = author;
         this.year = year;
+        this.imagePath = imagePath;
     }
     public Book() {
     }

@@ -20,12 +20,12 @@
 </form>
 
 <div class="checkout-box" th:if="${books.isEmpty()}">
-    <p>Books: </p>
+    <h2>Books: </h2>
     <p>This member has not checked out any books</p>
 </div>
 
 <div class="checkout-box" th:if="${!books.isEmpty()}">
-    <p>Books: </p>
+    <h2>Books: </h2>
     <div class="checkout-list" th:each="book : ${books}">
         <a th:text="${book.name + ', ' + book.author}"
            th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
@@ -33,12 +33,12 @@
 </div>
 
 <div class="checkout-box" th:if="${films.isEmpty()}">
-    <p>Films: </p>
+    <h2>Films: </h2>
     <p>This member has not checked out any films</p>
 </div>
 
 <div class="checkout-box" th:if="${!films.isEmpty()}">
-    <p>Films: </p>
+    <h2>Films: </h2>
     <div class="checkout-list" th:each="film : ${films}">
         <a th:text="${film.name + ', ' + film.director}"
            th:href="@{/films/{id}(id=${film.filmId})}">Film</a>
@@ -46,12 +46,12 @@
 </div>
 
 <div class="checkout-box" th:if="${journals.isEmpty()}">
-    <p>Magazines: </p>
+    <h2>Magazines: </h2>
     <p>This member has not checked out any magazines</p>
 </div>
 
 <div class="checkout-box" th:if="${!journals.isEmpty()}">
-    <p>Magazines: </p>
+    <h2>Magazines: </h2>
     <div class="checkout-list" th:each="journal: ${journals}">
         <a th:text="${journal.name}"
            th:href="@{/journals/{id}(id=${journal.journalId})}">Journal</a>

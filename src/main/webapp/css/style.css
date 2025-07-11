@@ -4,13 +4,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Comic Relief', cursive;
-    /*background: #f2f2f2;*/
+    background: #f2f2f2;
     color: #333;
-    background-image: url('/images/white-grey-background.png');
+    /*background-image: url('/images/white-grey-background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed;*/
 }
 
 .container {
@@ -222,7 +222,7 @@ p {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-.checkout-btn:hover{
+.checkout-btn:hover {
     background-color: #222;
 }
 
@@ -238,6 +238,12 @@ p {
 }
 
 .checkout-box p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.checkout-box h1 {
     font-size: 18px;
     font-weight: bold;
     color: #333;

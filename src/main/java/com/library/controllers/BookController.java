@@ -4,13 +4,21 @@ import com.library.dao.BookDao;
 import com.library.dao.MemberDao;
 import com.library.models.Book;
 import com.library.models.Member;
+import jakarta.servlet.ServletContext;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/books")
@@ -18,10 +26,15 @@ public class BookController {
 
     private final BookDao bookDao;
     private final MemberDao memberDao;
+    private final ServletContext servletContext;
 
-    public BookController(BookDao bookDao, MemberDao memberDao) {
+    @Value("${upload.path}")
+    private String uploadDir;
+
+    public BookController(BookDao bookDao, MemberDao memberDao, ServletContext servletContext) {
         this.bookDao = bookDao;
         this.memberDao = memberDao;
+        this.servletContext = servletContext;
     }
 
     @GetMapping
@@ -36,7 +49,7 @@ public class BookController {
 
         Optional<Member> bookOwner = bookDao.getBookOwner(id);
 
-        if(bookOwner.isPresent())
+        if (bookOwner.isPresent())
             model.addAttribute("owner", bookOwner.get());
         else
             model.addAttribute("members", memberDao.index());
@@ -50,9 +63,32 @@ public class BookController {
     }
 
     @PostMapping("/new")
-    public String save(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+    public String save(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
+                       @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("books/new");
+
+        if (!file.isEmpty()) {
+            try {
+                String originalName = Paths.get(file.getOriginalFilename()).getFileName().toString();
+
+                String filename = UUID.randomUUID() + "_" + originalName;
+
+                Path uploadPath = Paths.get(uploadDir);
+                Files.createDirectories(uploadPath);
+
+                Path filePath = uploadPath.resolve(filename);
+                file.transferTo(filePath);
+
+                book.setImagePath("/images/books/" + filename);
+
+                System.out.println("Image saved at: " + filePath.toAbsolutePath());
+
+            } catch (IOException e) {
+                System.err.println("Error while saving the image:");
+                e.printStackTrace();
+            }
+        }
 
         bookDao.save(book);
         return ("redirect:/books");
@@ -81,7 +117,7 @@ public class BookController {
     }
 
     @PatchMapping("/{id}/release")
-    public String release(@PathVariable("id") int id){
+    public String release(@PathVariable("id") int id) {
         bookDao.release(id);
         return "redirect:/books/" + id;
     }
