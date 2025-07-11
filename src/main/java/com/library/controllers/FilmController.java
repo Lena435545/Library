@@ -1,21 +1,27 @@
 package com.library.controllers;
 
 import com.library.dao.FilmDao;
+import com.library.dao.MemberDao;
 import com.library.models.Film;
+import com.library.models.Member;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/films")
 public class FilmController {
 
     private final FilmDao filmDao;
+    private final MemberDao memberDao;
 
-    public FilmController(FilmDao filmDao) {
+    public FilmController(FilmDao filmDao, MemberDao memberDao) {
         this.filmDao = filmDao;
+        this.memberDao = memberDao;
     }
 
     @GetMapping
@@ -25,8 +31,16 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
         model.addAttribute("film", filmDao.show(id));
+
+        Optional<Member> filmOwner = filmDao.getFilmOwner(id);
+
+        if (filmOwner.isPresent())
+            model.addAttribute("owner", filmOwner.get());
+        else
+            model.addAttribute("members", memberDao.index());
+
         return "films/show";
     }
 
@@ -38,7 +52,7 @@ public class FilmController {
     @PostMapping("/new")
     public String save(@ModelAttribute("film") @Valid Film film, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return("films/new");
+            return ("films/new");
 
         filmDao.save(film);
         return ("redirect:/films");
@@ -53,7 +67,7 @@ public class FilmController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("film") @Valid Film film,
                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ("films/edit");
 
         filmDao.update(film, id);
@@ -61,8 +75,20 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id) {
         filmDao.delete(id);
         return ("redirect:/films");
+    }
+
+    @PatchMapping("/{id}/release")
+    public String release(@PathVariable("id") int id) {
+        filmDao.release(id);
+        return "redirect:/films/" + id;
+    }
+
+    @PatchMapping("/{id}/assign")
+    public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember) {
+        filmDao.assign(id, selectedMember);
+        return "redirect:/films/" + id;
     }
 }

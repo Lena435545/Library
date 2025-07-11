@@ -18,5 +18,26 @@
     <input class="btn delete-btn" type="submit" value="Delete"/>
 </form>
 
+<div class="checkout-box" th:if="${owner}">
+    <p>This film is currently checked out by:</p>
+    <a th:text="${owner.name + ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member link</a>
+    <form class="checkout-form" th:method="PATCH" th:action="@{/films/{id}/release(id=${film.filmId})}">
+        <input class="btn checkout-btn" type="submit" value="Return Film"/>
+    </form>
+</div>
+
+<div class="checkout-box" th:if="${members}">
+    <p>This film is currently available</p>
+    <form class="checkout-form" th:method="PATCH" th:action="@{/films/{id}/assign(id=${film.filmId})}">
+        <label for="member">Assign it to a member:</label>
+        <select th:object="${member}" th:field="*{memberId}" id="member">
+            <option th:each="member : ${members}" th:value="${member.memberId}"
+                    th:text="${member.name + ' ' + member.surname}">
+            </option>
+        </select>
+        <input class="btn checkout-btn" type="submit" value="Check Out Film"/>
+    </form>
+</div>
+
 </body>
 </html>

@@ -1,42 +1,56 @@
 package com.library.controllers;
 
 import com.library.dao.JournalDao;
+import com.library.dao.MemberDao;
 import com.library.models.Journal;
+import com.library.models.Member;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/journals")
 public class JournalController {
     private final JournalDao journalDao;
+    private final MemberDao memberDao;
 
-    public JournalController(JournalDao journalDao) {
+    public JournalController(JournalDao journalDao, MemberDao memberDao) {
         this.journalDao = journalDao;
+        this.memberDao = memberDao;
     }
 
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("journals", journalDao.index());
         return ("journals/index");
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model){
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
         model.addAttribute("journal", journalDao.show(id));
+
+        Optional<Member> journalOwner = journalDao.getJournalOwner(id);
+
+        if (journalOwner.isPresent())
+            model.addAttribute("owner", journalOwner.get());
+        else
+            model.addAttribute("members", memberDao.index());
+
         return ("journals/show");
     }
 
     @GetMapping("/new")
-    public String create(@ModelAttribute("journal") Journal journal){
+    public String create(@ModelAttribute("journal") Journal journal) {
         return ("journals/new");
     }
 
     @PostMapping("/new")
     public String save(@ModelAttribute("journal") @Valid Journal journal, BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ("journals/new");
 
         journalDao.save(journal);
@@ -52,7 +66,7 @@ public class JournalController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("journal") @Valid Journal journal,
                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ("journals/edit");
 
         journalDao.update(journal, id);
@@ -60,9 +74,21 @@ public class JournalController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id) {
         journalDao.delete(id);
         return ("redirect:/journals");
+    }
+
+    @PatchMapping("/{id}/assign")
+    public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember){
+        journalDao.assign(id, selectedMember);
+        return "redirect:/journals/" + id;
+    }
+
+    @PatchMapping("/{id}/release")
+    public String release(@PathVariable("id") int id){
+        journalDao.release(id);
+        return "redirect:/journals/" + id;
     }
 
 }

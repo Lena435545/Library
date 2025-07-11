@@ -1,6 +1,8 @@
 package com.library.dao;
 
 import com.library.models.Book;
+import com.library.models.Film;
+import com.library.models.Journal;
 import com.library.models.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -47,5 +49,15 @@ public class MemberDao {
     public List<Book> getBooksByMemberId(int id) {
         return jdbcTemplate.query("SELECT * FROM Book WHERE member_id = ?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    public List<Film> getFilmsByMemberId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Film WHERE member_id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Film.class));
+    }
+
+    public List<Journal> getJournalsByMemberId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Journal WHERE journal_id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Journal.class));
     }
 }

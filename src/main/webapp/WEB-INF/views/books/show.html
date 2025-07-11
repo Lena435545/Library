@@ -10,9 +10,17 @@
 <p th:text="${book.name}">name</p>
 <p th:text="${book.author} + ', ' + ${book.year}">author, year</p>
 
+<form th:action="@{/books/{id}/edit(id=${book.bookId})}">
+    <input class="btn edit-btn" type="submit" value="Edit"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.bookId})}">
+    <input class="btn delete-btn" type="submit" value="Delete"/>
+</form>
+
 <div class="checkout-box" th:if="${owner}">
     <p>This book is currently checked out by:</p>
-    <a th:text="${owner.name+ ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member
+    <a th:text="${owner.name + ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member
         link</a>
     <form class="checkout-form" th:method="PATCH" th:action="@{/books/{id}/release(id=${book.bookId})}">
         <input class="btn checkout-button" type="submit" value="Return Book"/>
@@ -32,13 +40,6 @@
     </form>
 </div>
 
-<form th:action="@{/books/{id}/edit(id=${book.bookId})}">
-    <input class="btn edit-btn" type="submit" value="Edit"/>
-</form>
-
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.bookId})}">
-    <input class="btn delete-btn" type="submit" value="Delete"/>
-</form>
 
 </body>
 </html>

@@ -31,6 +31,8 @@ public class MemberController {
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("member", memberDao.show(id));
         model.addAttribute("books", memberDao.getBooksByMemberId(id));
+        model.addAttribute("films", memberDao.getFilmsByMemberId(id));
+        model.addAttribute("journals", memberDao.getJournalsByMemberId(id));
         return ("members/show");
     }
 

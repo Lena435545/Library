@@ -11,7 +11,16 @@
 <p th:text="${member.surname}">surname</p>
 <p th:text="${member.email}">email</p><br/>
 
+<form th:action="@{/members/{id}/edit(id=${member.memberId})}">
+    <input class="btn edit-btn" type="submit" value="Edit">
+</form>
+
+<form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
+    <input class="btn delete-btn" type="submit" value="Delete"/>
+</form>
+
 <div class="checkout-box" th:if="${books.isEmpty()}">
+    <p>Books: </p>
     <p>This member has not checked out any books</p>
 </div>
 
@@ -23,14 +32,31 @@
     </div>
 </div>
 
-<form th:action="@{/members/{id}/edit(id=${member.memberId})}">
-    <input class="btn edit-btn" type="submit" value="Edit">
-</form>
-<br/>
+<div class="checkout-box" th:if="${films.isEmpty()}">
+    <p>Films: </p>
+    <p>This member has not checked out any films</p>
+</div>
 
-<form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
-    <input class="btn delete-btn" type="submit" value="Delete"/>
-</form>
+<div class="checkout-box" th:if="${!films.isEmpty()}">
+    <p>Films: </p>
+    <div class="checkout-list" th:each="film : ${films}">
+        <a th:text="${film.name + ', ' + film.director}"
+           th:href="@{/films/{id}(id=${film.filmId})}">Film</a>
+    </div>
+</div>
+
+<div class="checkout-box" th:if="${journals.isEmpty()}">
+    <p>Magazines: </p>
+    <p>This member has not checked out any magazines</p>
+</div>
+
+<div class="checkout-box" th:if="${!journals.isEmpty()}">
+    <p>Magazines: </p>
+    <div class="checkout-list" th:each="journal: ${journals}">
+        <a th:text="${journal.name}"
+           th:href="@{/journals/{id}(id=${journal.journalId})}">Journal</a>
+    </div>
+</div>
 
 </body>
 </html>
