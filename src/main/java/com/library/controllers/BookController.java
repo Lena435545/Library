@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +29,7 @@ public class BookController {
     private final MemberDao memberDao;
     private final ServletContext servletContext;
 
-    @Value("${upload.path}")
+    @Value("${upload.dir}")
     private String uploadDir;
 
     public BookController(BookDao bookDao, MemberDao memberDao, ServletContext servletContext) {
@@ -70,8 +71,8 @@ public class BookController {
 
         if (!file.isEmpty()) {
             try {
-                String originalName = Paths.get(file.getOriginalFilename()).getFileName().toString();
-
+                String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
+                        .getFileName().toString();
                 String filename = UUID.randomUUID() + "_" + originalName;
 
                 Path uploadPath = Paths.get(uploadDir);
@@ -102,9 +103,28 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("books/edit");
+        
+        if (!file.isEmpty()){
+            try{
+                String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
+                        .getFileName().toString();
+                String fileName = UUID.randomUUID() + "_" + originalName;
+
+                Path uploadPath = Paths.get(uploadDir);
+                Files.createDirectories(uploadPath);
+
+                Path filePath = uploadPath.resolve(fileName);
+                file.transferTo(filePath);
+
+                book.setImagePath("images/books/" + fileName);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         bookDao.update(id, book);
         return ("redirect:/books");
