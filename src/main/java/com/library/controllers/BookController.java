@@ -4,6 +4,7 @@ import com.library.dao.BookDao;
 import com.library.dao.MemberDao;
 import com.library.models.Book;
 import com.library.models.Member;
+import com.library.services.BookService;
 import jakarta.servlet.ServletContext;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +28,14 @@ public class BookController {
 
     private final BookDao bookDao;
     private final MemberDao memberDao;
+    private final BookService bookService;
     private final ServletContext servletContext;
 
-    @Value("${upload.dir}")
-    private String uploadDir;
 
-    public BookController(BookDao bookDao, MemberDao memberDao, ServletContext servletContext) {
+    public BookController(BookDao bookDao, MemberDao memberDao, BookService bookService, ServletContext servletContext) {
         this.bookDao = bookDao;
         this.memberDao = memberDao;
+        this.bookService = bookService;
         this.servletContext = servletContext;
     }
 
@@ -69,29 +70,8 @@ public class BookController {
         if (bindingResult.hasErrors())
             return ("books/new");
 
-        if (!file.isEmpty()) {
-            try {
-                String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
-                        .getFileName().toString();
-                String filename = UUID.randomUUID() + "_" + originalName;
+        bookService.save(book, file);
 
-                Path uploadPath = Paths.get(uploadDir);
-                Files.createDirectories(uploadPath);
-
-                Path filePath = uploadPath.resolve(filename);
-                file.transferTo(filePath);
-
-                book.setImagePath("/images/books/" + filename);
-
-                System.out.println("Image saved at: " + filePath.toAbsolutePath());
-
-            } catch (IOException e) {
-                System.err.println("Error while saving the image:");
-                e.printStackTrace();
-            }
-        }
-
-        bookDao.save(book);
         return ("redirect:/books");
     }
 
@@ -106,27 +86,7 @@ public class BookController {
                          BindingResult bindingResult, @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("books/edit");
-        
-        if (!file.isEmpty()){
-            try{
-                String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
-                        .getFileName().toString();
-                String fileName = UUID.randomUUID() + "_" + originalName;
-
-                Path uploadPath = Paths.get(uploadDir);
-                Files.createDirectories(uploadPath);
-
-                Path filePath = uploadPath.resolve(fileName);
-                file.transferTo(filePath);
-
-                book.setImagePath("images/books/" + fileName);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        bookDao.update(id, book);
+        bookService.update(id, book, file);
         return ("redirect:/books");
     }
 
