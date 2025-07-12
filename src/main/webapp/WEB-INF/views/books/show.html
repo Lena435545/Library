@@ -2,21 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book</title>
+    <title th:text="${book.name}">Book Detail</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<p th:text="${book.name}">name</p>
-<p th:text="${book.author} + ', ' + ${book.year}">author, year</p>
+<div class="item-details-container">
+    <div class="item-image-box">
+        <img class="item-image" alt="Book image"
+             th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/books/default-book.png' }}"/>
+    </div>
+    <div class="item-info-box">
+        <p class="item-title" th:text="${book.name}">name</p>
+        <p class="item-meta" th:text="${book.author} + ', ' + ${book.year}">author, year</p>
 
-<form th:action="@{/books/{id}/edit(id=${book.bookId})}">
-    <input class="btn edit-btn" type="submit" value="Edit"/>
-</form>
+        <div class="item-buttons">
+            <form th:action="@{/books/{id}/edit(id=${book.bookId})}">
+                <input class="btn edit-btn" type="submit" value="Edit"/>
+            </form>
 
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.bookId})}">
-    <input class="btn delete-btn" type="submit" value="Delete"/>
-</form>
+            <form th:method="DELETE" th:action="@{/books/{id}(id=${book.bookId})}">
+                <input class="btn delete-btn" type="submit" value="Delete"/>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="checkout-box" th:if="${owner}">
     <p>This book is currently checked out by:</p>

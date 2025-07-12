@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Comic Relief', cursive;
+    font-family: 'Segoe UI', sans-serif;
     background: #f2f2f2;
     color: #333;
     /*background-image: url('/images/white-grey-background.png');
@@ -286,6 +286,47 @@ p {
     gap: 8px;
     margin-top: 10px;
     padding-left: 10px;
+}
+
+.item-details-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.item-image-box {
+    flex-shrink: 0;
+    width: 300px;
+    height: auto;
+}
+
+.item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display:block;
+}
+
+.item-info-box{
+    flex-grow: 1;
+}
+
+.item-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+}
+
+.item-meta {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #444;
+}
+
+.item-buttons {
+    display: flex;
+    gap: 1rem;
 }
 
 
