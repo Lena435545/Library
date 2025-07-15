@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${book.name}">Book Detail</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
 
 <div class="item-details-container">
     <div class="item-image-box">
         <img class="item-image" alt="Book image"
-             th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/books/default-book.png' }}"/>
+             th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/default_image.png' }}"/>
     </div>
     <div class="item-info-box">
         <p class="item-title" th:text="${book.name}">name</p>
@@ -29,7 +29,7 @@
 </div>
 
 
-<div class="checkout-box" th:if="${owner}">
+<div class="checkout-box checked-out" th:if="${owner}">
     <p>This book is currently checked out by:</p>
     <a th:text="${owner.name + ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member
         link</a>
@@ -38,7 +38,7 @@
     </form>
 </div>
 
-<div class="checkout-box" th:if="${members}">
+<div class="checkout-box available" th:if="${members}">
     <p>This book is currently available</p>
     <form class="checkout-form" th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.bookId})}">
         <label for="member">Assign it to a member:</label>

@@ -4,11 +4,13 @@ import com.library.dao.JournalDao;
 import com.library.dao.MemberDao;
 import com.library.models.Journal;
 import com.library.models.Member;
+import com.library.services.JournalService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -17,10 +19,12 @@ import java.util.Optional;
 public class JournalController {
     private final JournalDao journalDao;
     private final MemberDao memberDao;
+    private final JournalService journalService;
 
-    public JournalController(JournalDao journalDao, MemberDao memberDao) {
+    public JournalController(JournalDao journalDao, MemberDao memberDao, JournalService journalService) {
         this.journalDao = journalDao;
         this.memberDao = memberDao;
+        this.journalService = journalService;
     }
 
     @GetMapping
@@ -49,11 +53,11 @@ public class JournalController {
     }
 
     @PostMapping("/new")
-    public String save(@ModelAttribute("journal") @Valid Journal journal, BindingResult bindingResult) {
+    public String save(@ModelAttribute("journal") @Valid Journal journal, BindingResult bindingResult,
+                       @RequestParam("image")MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("journals/new");
-
-        journalDao.save(journal);
+        journalService.save(journal, file);
         return ("redirect:/journals");
     }
 
@@ -65,11 +69,10 @@ public class JournalController {
 
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("journal") @Valid Journal journal,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("journals/edit");
-
-        journalDao.update(journal, id);
+        journalService.update(id, journal, file);
         return ("redirect:/journals");
     }
 

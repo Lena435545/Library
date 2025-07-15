@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit film</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
 
-<form class="formular" th:method="PATCH" th:action="@{/films/{id}(id=${film.filmId})}" th:object="${film}">
+<form class="formular" th:method="PATCH" th:action="@{/films/{id}(id=${film.filmId})}" th:object="${film}"
+      enctype="multipart/form-data">
 
     <label for="name">Edit name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -21,6 +22,8 @@
     <input type="text" th:field="*{year}" id="year"/>
     <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
 
+    <label for="image">Upload image: </label>
+    <input type="file" name="image" id="image" accept="image/*"/>
     <input class="btn save-btn" type="submit" value="Save"/>
 </form>
 

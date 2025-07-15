@@ -6,11 +6,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background: #f2f2f2;
     color: #333;
-    /*background-image: url('/images/white-grey-background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;*/
 }
 
 .container {
@@ -91,9 +86,9 @@ h1 {
 }
 
 .item-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+    width: 200px;
+    height: 270px;
+    object-fit: cover;
     margin-bottom: 10px;
 }
 
@@ -293,6 +288,7 @@ p {
     align-items: flex-start;
     gap: 2rem;
     padding: 2rem;
+    margin: 0 auto;
 }
 
 .item-image-box {

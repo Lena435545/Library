@@ -17,7 +17,6 @@ public class Book {
     @Size(max=50, message = "Author should be less than 50 characters")
     private String author;
 
-    @Min(value=1900, message="Year should be greater than 1900")
     private int year;
 
     private String imagePath;

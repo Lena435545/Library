@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>All films</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
 <h1>List of films</h1>
 
 <div class="item-list">
     <div class="item-card" th:each="film : ${films}">
-        <img src="/images/default-film.png" alt="Film cover">
+        <img alt="Film image" th:src="@{${film.imagePath != null ? '/' + film.imagePath : '/images/default_image.png'}}">
         <div class="item-info">
             <p th:text="${film.name}"></p>
-            <p th:text="${film.director} + ', ' + ${film.year}"></p>
+            <p th:text="${film.director} + ', ' + ${film.year}">Author, Year</p>
         </div>
         <a class="item-link" th:href="@{/films/{id}(id=${film.filmId})}">Details</a>
     </div>

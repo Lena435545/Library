@@ -17,8 +17,9 @@ public class Film {
     @Size(max = 50, message = "Director should be less than 50 characters")
     private String director;
 
-    @Min(value=1900, message = "Year should be greater than 1900")
     private int year;
+
+    private String imagePath;
 
     public int getFilmId() {
         return filmId;
@@ -60,12 +61,21 @@ public class Film {
         this.year = year;
     }
 
-    public Film(int filmId, Integer memberId, String name, String director, int year) {
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Film(int filmId, Integer memberId, String name, String director, int year, String imagePath) {
         this.filmId = filmId;
         this.memberId = memberId;
         this.name = name;
         this.director = director;
         this.year = year;
+        this.imagePath = imagePath;
     }
 
     public Film() {

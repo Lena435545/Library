@@ -7,17 +7,28 @@
 </head>
 <body>
 
-<p th:text="${journal.thematic}">Thematic</p>
-<p th:text="${journal.name}">Name</p>
-<p th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>
+<div class="item-details-container">
+    <div class="item-image-box">
+        <img class="item-image" alt="Magazine image"
+             th:src="@{${journal.imagePath != null ? '/' + journal.imagePath : '/images/default_image.png'}}"/>
+    </div>
+    <div class="item-info-box">
+        <p class="item-title" th:text="${journal.thematic}">Thematic</p>
+        <p class="item-title" th:text="${journal.name}">Name</p>
+        <p class="item-meta" th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>
 
-<form th:action="@{/journals/{id}/edit(id=${journal.journalId})}">
-    <input class="btn edit-btn" type="submit" value="Edit"/>
-</form>
+        <div class="item-buttons">
+            <form th:action="@{/journals/{id}/edit(id=${journal.journalId})}">
+                <input class="btn edit-btn" type="submit" value="Edit"/>
+            </form>
 
-<form th:method="DELETE" th:action="@{/journals/{id}(id=${journal.journalId})}">
-    <input class="btn delete-btn" type="submit" value="Delete"/>
-</form>
+            <form th:method="DELETE" th:action="@{/journals/{id}(id=${journal.journalId})}">
+                <input class="btn delete-btn" type="submit" value="Delete"/>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="checkout-box" th:if="${owner}">
     <p>This film is currently checked out by:</p>
@@ -33,7 +44,7 @@
         <label for="member">Assign it to a member:</label>
         <select id="member" th:object="${member}" th:field="*{memberId}">
             <option th:each="member : ${members}" th:value="${member.memberId}"
-            th:text="${member.name + ' ' + member.surname}">
+                    th:text="${member.name + ' ' + member.surname}">
             </option>
         </select>
         <input class="btn checkout-btn" type="submit" value="Check out Magazine"/>

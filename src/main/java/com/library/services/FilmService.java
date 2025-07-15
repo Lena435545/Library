@@ -1,7 +1,7 @@
 package com.library.services;
 
-import com.library.dao.BookDao;
-import com.library.models.Book;
+import com.library.dao.FilmDao;
+import com.library.models.Film;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,34 +14,36 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Service
-public class BookService {
-    private final BookDao bookDao;
+public class FilmService {
+
+    private final FilmDao filmDao;
+
+    public FilmService(FilmDao filmDao) {
+        this.filmDao = filmDao;
+    }
+
     @Value("${upload.dir}")
     private String uploadDir;
 
-    public BookService(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
-    public void save(Book book, MultipartFile file) {
-        if(!file.isEmpty()) {
-            saveImageWithUniqueName(book, file);
-        }
-        bookDao.save(book);
-    }
-
-
-    public void update(int id, Book book, MultipartFile file) {
+    public void save(Film film, MultipartFile file) {
         if (!file.isEmpty()) {
-            saveImageWithUniqueName(book, file);
-        } else {
-            Book existingBook = bookDao.show(id);
-            book.setImagePath(existingBook.getImagePath());
+            saveImageWithUniqueName(film, file);
         }
-        bookDao.update(id, book);
+        filmDao.save(film);
+    }
+
+    public void update(int id, Film film, MultipartFile file) {
+        if (!file.isEmpty()) {
+            saveImageWithUniqueName(film, file);
+        } else {
+            Film existingFilm = filmDao.show(id);
+            film.setImagePath(existingFilm.getImagePath());
+        }
+        filmDao.update(id, film);
     }
 
 
-    private void saveImageWithUniqueName(Book book, MultipartFile file) {
+    private void saveImageWithUniqueName(Film film, MultipartFile file) {
         try {
             String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
                     .getFileName().toString();
@@ -53,9 +55,10 @@ public class BookService {
             Path filePath = uploadPath.resolve(fileName);
             file.transferTo(filePath);
 
-            book.setImagePath("images/" + fileName);
+            film.setImagePath("images/" + fileName);
+
         } catch (IOException e) {
-            System.err.println("Error during image upload: " + e.getMessage());
+            System.out.println("Error during image upload: " + e.getMessage());
         }
     }
 }

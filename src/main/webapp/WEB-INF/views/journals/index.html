@@ -11,13 +11,12 @@
 
 <div class="item-list">
     <div class="item-card" th:each="journal: ${journals}">
-        <img src="/images/default-journal.png" alt="Magazine cover">
+        <img th:src="@{${journal.imagePath != null ? '/' + journal.imagePath : '/images/default_image.png'}}" alt="Magazine cover">
         <div class="item-info">
             <p th:text="${journal.thematic}">Thematic</p>
             <p th:text="${journal.name}">Name</p>
             <p th:text="${journal.month} + ', ' + ${journal.year}">Month, year</p>
         </div>
-
         <a class="item-link" th:href="@{/journals/{id}(id=${journal.journalId})}">Details</a>
     </div>
 </div>

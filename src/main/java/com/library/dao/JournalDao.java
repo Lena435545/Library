@@ -28,13 +28,13 @@ public class JournalDao {
     }
 
     public void save(Journal journal){
-        jdbcTemplate.update("INSERT INTO Journal (name, thematic, month, year) VALUES (?, ?, ?, ?)",
-                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear());
+        jdbcTemplate.update("INSERT INTO Journal (name, thematic, month, year, image_path) VALUES (?, ?, ?, ?, ?)",
+                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear(), journal.getImagePath());
     }
 
-    public void update(Journal journal, int id){
-        jdbcTemplate.update("UPDATE Journal SET name=?, thematic=?, month=?, year=? WHERE journal_id=?",
-                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear(), id);
+    public void update(int id, Journal journal){
+        jdbcTemplate.update("UPDATE Journal SET name=?, thematic=?, month=?, year=?, image_path=? WHERE journal_id=?",
+                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear(), journal.getImagePath(), id);
     }
 
     public void delete(int id){

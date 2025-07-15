@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Film</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
-<p th:text="${film.name}">name</p>
-<p th:text="${film.director}">director</p>
-<p th:text="${film.year}">year</p>
+<div class="item-details-container">
+    <div class="item-image-box">
+        <img class="item-image" alt="Film image"
+             th:src="@{${film.imagePath != null ? '/' + film.imagePath : '/images/default_image.png'}}"/>
+    </div>
+    <div class="item item-info-box">
+        <p class="item-title" th:text="${film.name}">name</p>
+        <p class="item-meta" th:text="${film.director}">director</p>
+        <p class="item-meta" th:text="${film.year}">year</p>
 
-<form th:action="@{/films/{id}/edit(id=${film.filmId})}">
-    <input class="btn edit-btn" type="submit" value="Edit"/>
-</form>
+        <div class="item-buttons">
+            <form th:action="@{/films/{id}/edit(id=${film.filmId})}">
+                <input class="btn edit-btn" type="submit" value="Edit"/>
+            </form>
+            <form th:method="DELETE" th:action="@{/films/{id}(id=${film.filmId})}">
+                <input class="btn delete-btn" type="submit" value="Delete"/>
+            </form>
+        </div>
+    </div>
+</div>
 
-<form th:method="DELETE" th:action="@{/films/{id}(id=${film.filmId})}">
-    <input class="btn delete-btn" type="submit" value="Delete"/>
-</form>
 
 <div class="checkout-box" th:if="${owner}">
     <p>This film is currently checked out by:</p>

@@ -4,11 +4,13 @@ import com.library.dao.FilmDao;
 import com.library.dao.MemberDao;
 import com.library.models.Film;
 import com.library.models.Member;
+import com.library.services.FilmService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -18,10 +20,12 @@ public class FilmController {
 
     private final FilmDao filmDao;
     private final MemberDao memberDao;
+    private final FilmService filmService;
 
-    public FilmController(FilmDao filmDao, MemberDao memberDao) {
+    public FilmController(FilmDao filmDao, MemberDao memberDao, FilmService filmService) {
         this.filmDao = filmDao;
         this.memberDao = memberDao;
+        this.filmService = filmService;
     }
 
     @GetMapping
@@ -50,11 +54,12 @@ public class FilmController {
     }
 
     @PostMapping("/new")
-    public String save(@ModelAttribute("film") @Valid Film film, BindingResult bindingResult) {
+    public String save(@ModelAttribute("film") @Valid Film film, BindingResult bindingResult,
+                       @RequestParam("image")MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("films/new");
 
-        filmDao.save(film);
+        filmService.save(film, file);
         return ("redirect:/films");
     }
 
@@ -66,11 +71,11 @@ public class FilmController {
 
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("film") @Valid Film film,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("films/edit");
 
-        filmDao.update(film, id);
+        filmService.update(id, film, file);
         return ("redirect:/films");
     }
 

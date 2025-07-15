@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<form class="formular" th:method="POST" th:action="@{/journals/new}" th:object="${journal}">
+<form class="formular" th:method="POST" th:action="@{/journals/new}" th:object="${journal}"
+      enctype="multipart/form-data">
 
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -23,6 +24,9 @@
     <label for="year">Enter year: </label>
     <input type="text" th:field="*{year}" id="year"/>
     <div class="errors" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
+
+    <label for="image">Upload image</label>
+    <input type="file" name="image" id="image" accept="image/*"/>
 
     <input class="btn save-btn" type="submit" value="Save"/>
 </form>

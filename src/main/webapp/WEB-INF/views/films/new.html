@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>New film</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
 
-<form class="formular " th:method="POST" th:action="@{/films/new}" th:object="${film}">
+<form class="formular " th:method="POST" th:action="@{/films/new}" th:object="${film}"
+enctype="multipart/form-data">
 
     <label for="name">Enter name: </label>
     <input type="text"  th:field="*{name}" id="name"/>
@@ -20,6 +21,9 @@
     <label for="year">Enter year: </label>
     <input type="text" th:field="*{year}" id="year"/>
     <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
+
+    <label for="image">Upload image: </label>
+    <input type="file" name="image" accept="image/*" id="image"/>
 
     <input class="btn save-btn" type="submit" value="Save"/>
 </form>

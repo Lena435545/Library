@@ -28,13 +28,13 @@ public class FilmDao {
     }
 
     public void save(Film film){
-        jdbcTemplate.update("INSERT INTO Film (name, director, year) VALUES (?, ?, ?)", film.getName(),
-                film.getDirector(), film.getYear());
+        jdbcTemplate.update("INSERT INTO Film (name, director, year, image_path ) VALUES (?, ?, ?, ?)", film.getName(),
+                film.getDirector(), film.getYear(), film.getImagePath());
     }
 
-    public void update(Film film, int id) {
-        jdbcTemplate.update("UPDATE Film SET name=?, director=?, year=? WHERE film_id=?", film.getName(),
-                film.getDirector(), film.getYear(), id);
+    public void update(int id, Film film) {
+        jdbcTemplate.update("UPDATE Film SET name=?, director=?, year=?, image_path = ? WHERE film_id=?", film.getName(),
+                film.getDirector(), film.getYear(), film.getImagePath(), id);
     }
 
     public void delete(int id) {
