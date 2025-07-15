@@ -92,56 +92,6 @@ Bearbeiten
 mvn spring-boot:run
 Then open http://localhost:8080 in your browser.
 
-🗂️ Project Structure
-bash
-Kopieren
-Bearbeiten
-src/
- ├─ main/java/.../controller/
- │   ├─ BookController.java
- │   ├─ MovieController.java
- │   ├─ JournalController.java
- │   ├─ MemberController.java
- │   └─ HomeController.java
- │
- ├─ main/java/.../dao/
- │   ├─ BookDao.java
- │   ├─ MovieDao.java
- │   ├─ JournalDao.java
- │   ├─ MemberDao.java
- │   └─ ...
- │
- ├─ main/resources/templates/
- │   ├─ books/
- │   │   ├─ index.html      # List all books
- │   │   ├─ show.html       # Single book view with assign/release
- │   │   ├─ new.html        # Create book form
- │   │   ├─ edit.html       # Edit book form
- │   │
- │   ├─ movies/
- │   │   ├─ index.html      # List all movies
- │   │   ├─ show.html       # Single movie view
- │   │   ├─ new.html        # Create movie form
- │   │   ├─ edit.html
- │   │
- │   ├─ journals/
- │   │   ├─ index.html
- │   │   ├─ show.html
- │   │   ├─ new.html
- │   │   ├─ edit.html
- │   │
- │   ├─ members/
- │   │   ├─ index.html      # Member list
- │   │   ├─ show.html       # Member details with checked-out items
- │   │
- │   └─ home.html
- │
- ├─ main/resources/static/
- │   ├─ css/               # Common styles + themes
- │   ├─ js/                # Theme toggle script
- │   └─ images/            # Default placeholder images
- │
- └─ ...
 🌐 Application Endpoints
 Books
 GET /books – list all books
