@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>All books</title>
-    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <h1>List of books</h1>
 
 <div class="item-list">
     <div class="item-card" th:each="book : ${books}">
-        <img alt="Book image" th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/default_image.png' }}"/>
+        <img alt="Book image"
+             th:class="${book.imagePath == null} ? 'default-placeholder' : ''"
+             th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/default-dark.png'}}"/>
         <div class="item-info">
             <p th:text="${book.name}">Title</p>
             <p th:text="${book.author} + ', ' + ${book.year}">Author, Year</p>
@@ -22,6 +26,8 @@
 <form th:action="@{/books/new}">
     <input class="btn create-btn" type="submit" value="Create"/>
 </form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Edit journal</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/new-edit.css}">
 </head>
 <body>
 
@@ -32,6 +34,8 @@
 
     <input class="btn save-btn" type="submit" value="Save"/>
 </form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>All members</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <h1>List of members </h1>
@@ -17,7 +19,7 @@
         <input class="btn create-btn" type="submit" value="Create"/>
     </form>
 
-
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

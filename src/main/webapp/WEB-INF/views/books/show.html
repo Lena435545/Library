@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${book.name}">Book Detail</title>
-    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/show.css}">
 </head>
 <body>
 
@@ -51,6 +53,7 @@
     </form>
 </div>
 
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

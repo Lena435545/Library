@@ -36,10 +36,10 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
-                null, // Speicherort (null = Standardtemp)
-                10_000_000, // maxUploadSize = 10MB
-                15_000_000, // maxRequestSize
-                0           // fileSizeThreshold = direkt auf Platte
+                null,
+                10_000_000,
+                15_000_000,
+                0
         );
         registration.setMultipartConfig(multipartConfigElement);
     }

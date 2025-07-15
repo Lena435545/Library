@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+body.dark-theme img.default-placeholder {
+    content: url("/images/default-dark.png");
+}
+
+body.light-theme img.default-placeholder {
+    content: url("/images/default-light.png");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-color);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-weight: 600;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    margin: 10px 0;
+    font-family: inherit;
+    color: var(--text-color);
+}
+
+.btn {
+    background-color: var(--primary);
+    color:var(--btn-text);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.create-btn {}
+.delete-btn {}
+.edit-btn {}
+.save-btn {}

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Library Home</title>
-    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 <div class="container">
@@ -30,6 +32,8 @@
             <p>View and manage members</p>
         </a>
     </div>
+    <button id="theme-toggle" class="btn">Switch Theme</button>
+    <script th:src="@{/js/theme-toggle.js}"></script>
 </div>
 
 </body>

@@ -62,6 +62,9 @@ public class SpringConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/images/**")
                 .addResourceLocations("/images/");
+        registry
+                .addResourceHandler("/js/**")
+                .addResourceLocations("/js/");
     }
 
     @Bean

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>All journals</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 
@@ -25,6 +27,8 @@
 <form th:action="@{/journals/new}">
     <input class="btn create-btn" type="submit" value="Create"/>
 </form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

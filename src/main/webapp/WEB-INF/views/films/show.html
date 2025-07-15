@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Film</title>
-    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/show.css}">
 </head>
 <body>
 <div class="item-details-container">
@@ -48,6 +50,8 @@
         <input class="btn checkout-btn" type="submit" value="Check Out Film"/>
     </form>
 </div>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
 
 </body>
 </html>

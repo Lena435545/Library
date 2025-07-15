@@ -1,0 +1,120 @@
+.checkout-btn {
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: var(--bg-body);
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+}
+
+.checkout-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.checkout-box {
+    padding: 24px;
+    margin: 40px auto;
+    max-width: 600px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.checkout-box p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    color: var(--text-color);
+}
+
+.checkout-box.available p {
+    color: var(--status-green);
+}
+
+.checkout-box.checked-out p {
+    color: var(--status-red);
+}
+
+.checkout-box a {
+    display: inline-block;
+    font-size: 18px;
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.checkout-form {
+    margin-top: 20px;
+    font-family: inherit;
+}
+
+.checkout-form label {
+    display: block;
+    margin-bottom: 12px;
+    margin-left: 58px;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 500;
+    text-align: left;
+}
+
+.checkout-form select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 20px;
+    font-family: inherit;
+}
+
+.item-details-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.item-image-box {
+    flex-shrink: 0;
+    width: 300px;
+    height: auto;
+}
+
+.item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.item-info-box {
+    flex-grow: 1;
+}
+
+.item-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+    color: var(--text-color);
+}
+
+.item-meta {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+}
+
+.item-buttons {
+    display: flex;
+    gap: 1rem;
+}
