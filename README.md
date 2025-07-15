@@ -64,9 +64,6 @@ sql
 Kopieren
 Bearbeiten
 CREATE DATABASE library_db;
-CREATE USER library_user WITH ENCRYPTED PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE library_db TO library_user;
-Then update your application.properties (or application.yml) with the correct credentials:
 
 properties
 Kopieren
@@ -76,21 +73,6 @@ spring.datasource.username=library_user
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 3️⃣ Run the Application
-Since you usually run it via IDE (IntelliJ IDEA):
-
-Open the project in IntelliJ IDEA
-
-Let Maven import dependencies
-
-Run the main Spring Boot application class
-
-Alternatively, via Maven CLI:
-
-bash
-Kopieren
-Bearbeiten
-mvn spring-boot:run
-Then open http://localhost:8080 in your browser.
 
 🌐 Application Endpoints
 Books
