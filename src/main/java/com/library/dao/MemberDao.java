@@ -4,10 +4,14 @@ import com.library.models.Book;
 import com.library.models.Film;
 import com.library.models.Journal;
 import com.library.models.Member;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -16,34 +20,47 @@ import java.util.List;
 public class MemberDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public MemberDao(JdbcTemplate jdbcTemplate) {
+    public MemberDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
         this.jdbcTemplate = jdbcTemplate;
+        this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(readOnly = true)
     public List<Member> index() {
-        return jdbcTemplate.query("SELECT * FROM Member", new BeanPropertyRowMapper<>(Member.class));
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-
+    @Transactional(readOnly = true)
     public Member show(int id) {
-        return jdbcTemplate.query("SELECT * FROM Member WHERE member_id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Member.class))
-                .stream().findAny().orElse(null);
+        Session session = sessionFactory.getCurrentSession();
+        return session.find(Member.class, id);
     }
 
+    @Transactional
     public void save(Member member) {
-        jdbcTemplate.update("INSERT INTO Member (name, surname, email) VALUES (?, ?, ?)", member.getName(),
-                member.getSurname(), member.getEmail());
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(member);
     }
 
-    public void update(int id, Member member) {
-        jdbcTemplate.update("UPDATE Member SET name=?, surname=?, email=? WHERE member_id=?", member.getName(),
-                member.getSurname(), member.getEmail(), id);
+    @Transactional
+    public void update(int id, Member updatedMember) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Member memberToBeUpdated = session.find(Member.class, id);
+
+        memberToBeUpdated.setName(updatedMember.getName());
+        memberToBeUpdated.setSurname(updatedMember.getSurname());
+        memberToBeUpdated.setEmail(updatedMember.getEmail());
     }
 
+    @Transactional
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM Member WHERE member_id=?", id);
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.find(Member.class, id));
     }
 
     public List<Book> getBooksByMemberId(int id) {

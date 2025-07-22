@@ -1,24 +1,35 @@
 package com.library.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-
+@Entity
+@Table(name="film")
 public class Film {
+    @Id
+    @Column(name="film_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int filmId;
+
+    @Column(name="member_id")
     private Integer memberId;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
+    @Column(name="name")
     private String name;
 
     @Size(max = 50, message = "Director should be less than 50 characters")
+    @Column(name="director")
     private String director;
 
+    @Column(name="year")
     private int year;
 
+    @Column(name="image_path")
     private String imagePath;
 
     public int getFilmId() {

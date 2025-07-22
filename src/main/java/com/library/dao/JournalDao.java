@@ -2,9 +2,12 @@ package com.library.dao;
 
 import com.library.models.Journal;
 import com.library.models.Member;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,33 +15,49 @@ import java.util.Optional;
 @Component
 public class JournalDao {
     private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public JournalDao(JdbcTemplate jdbcTemplate) {
+    public JournalDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
         this.jdbcTemplate = jdbcTemplate;
+        this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(readOnly = true)
     public List<Journal> index(){
-        return jdbcTemplate.query("SELECT * FROM Journal", new BeanPropertyRowMapper<>(Journal.class));
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select j from Journal j", Journal.class).getResultList();
     }
 
+    @Transactional(readOnly = true)
     public Journal show(int id){
-        return jdbcTemplate.query("SELECT * FROM Journal WHERE journal_id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Journal.class))
-                .stream().findAny().orElse(null);
+        Session session = sessionFactory.getCurrentSession();
+        return session.find(Journal.class, id);
     }
 
+    @Transactional
     public void save(Journal journal){
-        jdbcTemplate.update("INSERT INTO Journal (name, thematic, month, year, image_path) VALUES (?, ?, ?, ?, ?)",
-                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear(), journal.getImagePath());
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(journal);
     }
 
-    public void update(int id, Journal journal){
-        jdbcTemplate.update("UPDATE Journal SET name=?, thematic=?, month=?, year=?, image_path=? WHERE journal_id=?",
-                journal.getName(), journal.getThematic(), journal.getMonth(), journal.getYear(), journal.getImagePath(), id);
+    @Transactional
+    public void update(int id, Journal updatedJournal){
+        Session session = sessionFactory.getCurrentSession();
+
+        Journal journalToBeUpdated = session.find(Journal.class, id);
+
+        journalToBeUpdated.setName(updatedJournal.getName());
+        journalToBeUpdated.setThematic(updatedJournal.getThematic());
+        journalToBeUpdated.setYear(updatedJournal.getYear());
+        journalToBeUpdated.setMonth(updatedJournal.getMonth());
+        journalToBeUpdated.setImagePath(updatedJournal.getImagePath());
+        journalToBeUpdated.setMemberId(updatedJournal.getMemberId());
     }
 
+    @Transactional
     public void delete(int id){
-        jdbcTemplate.update("DELETE FROM Journal WHERE journal_id=?", id);
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.find(Journal.class, id));
     }
 
     public Optional<Member> getJournalOwner(int id) {
