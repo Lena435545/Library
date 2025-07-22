@@ -1,59 +1,126 @@
 📚 Library Management System
+This is a Spring MVC + Thymeleaf web application for managing a library of books, movies, and journals.
+It allows creating, editing, deleting, and assigning library items to registered members.
 
+The application also supports a dark/light theme toggle, CRUD operations for different types of library items, and a check-out/check-in system for managing which member currently holds an item.
 
-📝 Project Description
+✨ Features
 
-This web application provides a management interface for libraries. It allows registering readers and managing multiple types of media (books, films, magazines).
+✅ Library Items Management
 
+Books – create, edit, delete, view details, upload cover images
 
-⚙️ Tech Stack
+Movies – create, edit, delete, view details, upload posters
 
-Java (Spring MVC)
+Journals – create, edit, delete, view details, upload covers
 
-Thymeleaf, HTML & CSS
+Default placeholder image when no file is uploaded
+
+✅ Member Management
+
+Create and manage library members
+
+Assign books, movies, and journals to members
+
+Release (check-in) items back to the library
+
+✅ Dynamic Theme Switching
+
+Toggle between light and dark theme
+
+Theme preference stored in browser localStorage
+
+✅ Server-Side Rendering with Thymeleaf
+
+Dynamic views for item listing, creation, editing, and details
+
+Validation error handling
+
+🛠️ Tech Stack
+Java 17+
+
+Spring MVC (part of Spring Boot)
+
+Thymeleaf (for server-side rendering)
+
+Maven (build tool)
+
+PostgreSQL (manual DB setup required)
+
+HTML + CSS + Vanilla JavaScript (for frontend)
+
+🚀 How to Run
+1️⃣ Requirements
+Java 17+
+
+Maven
 
 PostgreSQL
 
+2️⃣ Database Setup
+Create a PostgreSQL database manually, for example:
 
-🔑 Features
+sql
+Kopieren
+Bearbeiten
+CREATE DATABASE library_db;
 
-Reader registration
+properties
+Kopieren
+Bearbeiten
+spring.datasource.url=jdbc:postgresql://localhost:5432/library_db
+spring.datasource.username=library_user
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+3️⃣ Run the Application
 
-Full CRUD functionality for:
+🌐 Application Endpoints
+Books
+GET /books – list all books
 
-📖 Books
+GET /books/new – create form
 
-🎬 Films
+POST /books/new – create new book
 
-📰 Magazines
+GET /books/{id} – view single book
 
-Assigning and releasing media to/from readers
+GET /books/{id}/edit – edit form
 
-Form validation with user-friendly error messages
+PATCH /books/{id} – update book
 
-Separate UI themes for each media type
+DELETE /books/{id} – delete book
 
+PATCH /books/{id}/assign – assign book to a member
 
-🚀 Setup
+PATCH /books/{id}/release – release book back to library
 
-Clone the repository:
+Movies & Journals
+Identical structure to books (/movies, /journals)
 
-git clone https://github.com/Lena435545/Library
+Members
+GET /members – list all members
 
-Set up PostgreSQL:
+GET /members/{id} – view member details (with checked-out items)
 
-Create a database named library_db
+✅ Current Status
+✔️ CRUD implemented for Books, Movies, Journals
 
-Configure your credentials in application.properties
+✔️ Assign/Release functionality working for all item types
 
-Start the application
+✔️ Manual PostgreSQL DB setup required
 
-Access the app in your browser:
+✔️ Dark/Light theme toggle implemented
 
-http://localhost:8080
+🚧 Future Enhancements
+ Add user authentication (e.g. Spring Security)
 
+ Improve database migration with Flyway/Liquibase
 
-🧾 License
+ Containerize with Docker for easier deployment
 
-MIT License
+ Add REST API endpoints for React/Vue frontend integration
 
+ Extend search & filter functionality
+
+📜 License
+This project is for educational purposes.
