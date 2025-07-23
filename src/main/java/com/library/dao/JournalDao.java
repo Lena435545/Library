@@ -15,49 +15,9 @@ import java.util.Optional;
 @Component
 public class JournalDao {
     private final JdbcTemplate jdbcTemplate;
-    private final SessionFactory sessionFactory;
 
-    public JournalDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
+    public JournalDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Journal> index(){
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select j from Journal j", Journal.class).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public Journal show(int id){
-        Session session = sessionFactory.getCurrentSession();
-        return session.find(Journal.class, id);
-    }
-
-    @Transactional
-    public void save(Journal journal){
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(journal);
-    }
-
-    @Transactional
-    public void update(int id, Journal updatedJournal){
-        Session session = sessionFactory.getCurrentSession();
-
-        Journal journalToBeUpdated = session.find(Journal.class, id);
-
-        journalToBeUpdated.setName(updatedJournal.getName());
-        journalToBeUpdated.setThematic(updatedJournal.getThematic());
-        journalToBeUpdated.setYear(updatedJournal.getYear());
-        journalToBeUpdated.setMonth(updatedJournal.getMonth());
-        journalToBeUpdated.setImagePath(updatedJournal.getImagePath());
-        journalToBeUpdated.setMemberId(updatedJournal.getMemberId());
-    }
-
-    @Transactional
-    public void delete(int id){
-        Session session = sessionFactory.getCurrentSession();
-        session.remove(session.find(Journal.class, id));
     }
 
     public Optional<Member> getJournalOwner(int id) {

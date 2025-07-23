@@ -15,48 +15,9 @@ import java.util.Optional;
 @Component
 public class FilmDao {
     private final JdbcTemplate jdbcTemplate;
-    private final SessionFactory sessionFactory;
 
-    public FilmDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
+    public FilmDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Film> index() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select f from Film f", Film.class).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public Film show(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.find(Film.class, id);
-    }
-
-    @Transactional
-    public void save(Film film){
-       Session session = sessionFactory.getCurrentSession();
-       session.persist(film);
-    }
-
-    @Transactional
-    public void update(int id, Film updatedFilm) {
-        Session session = sessionFactory.getCurrentSession();
-
-        Film filmToBeUpdated = session.find(Film.class, id);
-
-        filmToBeUpdated.setName(updatedFilm.getName());
-        filmToBeUpdated.setDirector(updatedFilm.getDirector());
-        filmToBeUpdated.setYear(updatedFilm.getYear());
-        filmToBeUpdated.setImagePath(updatedFilm.getImagePath());
-        filmToBeUpdated.setMemberId(updatedFilm.getMemberId());
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.remove(session.find(Film.class, id));
     }
 
     public Optional<Member> getFilmOwner(int id) {

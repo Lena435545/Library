@@ -5,6 +5,7 @@ import com.library.dao.MemberDao;
 import com.library.models.Book;
 import com.library.models.Member;
 import com.library.services.BookService;
+import com.library.services.MemberService;
 import jakarta.servlet.ServletContext;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,35 +27,33 @@ import java.util.UUID;
 @RequestMapping("/books")
 public class BookController {
 
+    private final MemberService memberService;
     private final BookDao bookDao;
-    private final MemberDao memberDao;
     private final BookService bookService;
-    private final ServletContext servletContext;
 
 
-    public BookController(BookDao bookDao, MemberDao memberDao, BookService bookService, ServletContext servletContext) {
+    public BookController(MemberDao memberDao, MemberService memberService, BookDao bookDao, BookService bookService) {
+        this.memberService = memberService;
         this.bookDao = bookDao;
-        this.memberDao = memberDao;
         this.bookService = bookService;
-        this.servletContext = servletContext;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("books", bookDao.index());
+        model.addAttribute("books", bookService.findAll());
         return ("books/index");
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
-        model.addAttribute("book", bookDao.show(id));
+        model.addAttribute("book", bookService.findById(id));
 
         Optional<Member> bookOwner = bookDao.getBookOwner(id);
 
         if (bookOwner.isPresent())
             model.addAttribute("owner", bookOwner.get());
         else
-            model.addAttribute("members", memberDao.index());
+            model.addAttribute("members", memberService.findAll());
 
         return ("books/show");
     }
@@ -77,7 +76,7 @@ public class BookController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", bookDao.show(id));
+        model.addAttribute("book", bookService.findById(id));
         return ("books/edit");
     }
 
@@ -92,7 +91,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        bookDao.delete(id);
+        bookService.delete(id);
         return ("redirect:/books");
     }
 

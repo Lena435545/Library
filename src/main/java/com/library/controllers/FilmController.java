@@ -4,6 +4,7 @@ import com.library.dao.FilmDao;
 import com.library.dao.MemberDao;
 import com.library.models.Film;
 import com.library.models.Member;
+import com.library.repositories.MemberRepository;
 import com.library.services.FilmService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,31 +20,31 @@ import java.util.Optional;
 public class FilmController {
 
     private final FilmDao filmDao;
-    private final MemberDao memberDao;
+    private final MemberRepository memberRepository;
     private final FilmService filmService;
 
-    public FilmController(FilmDao filmDao, MemberDao memberDao, FilmService filmService) {
+    public FilmController(FilmDao filmDao, MemberRepository memberRepository, FilmService filmService) {
         this.filmDao = filmDao;
-        this.memberDao = memberDao;
+        this.memberRepository = memberRepository;
         this.filmService = filmService;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("films", filmDao.index());
+        model.addAttribute("films", filmService.findAll());
         return "films/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
-        model.addAttribute("film", filmDao.show(id));
+        model.addAttribute("film", filmService.findById(id));
 
         Optional<Member> filmOwner = filmDao.getFilmOwner(id);
 
         if (filmOwner.isPresent())
             model.addAttribute("owner", filmOwner.get());
         else
-            model.addAttribute("members", memberDao.index());
+            model.addAttribute("members", memberRepository.findAll());
 
         return "films/show";
     }
@@ -65,7 +66,7 @@ public class FilmController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("film", filmDao.show(id));
+        model.addAttribute("film", filmService.findById(id));
         return ("films/edit");
     }
 
@@ -81,7 +82,7 @@ public class FilmController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        filmDao.delete(id);
+        filmService.delete(id);
         return ("redirect:/films");
     }
 

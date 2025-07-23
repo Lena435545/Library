@@ -1,43 +1,65 @@
 package com.library.services;
 
-import com.library.dao.BookDao;
 import com.library.models.Book;
+import com.library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class BookService {
-    private final BookDao bookDao;
+
+    private final BookRepository bookRepository;
     @Value("${upload.dir}")
     private String uploadDir;
 
-    public BookService(BookDao bookDao) {
-        this.bookDao = bookDao;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
+
+    public List<Book> findAll(){
+        return bookRepository.findAll();
+    }
+
+    public Book findById(int id){
+        Optional<Book> foundBook = bookRepository.findById(id);
+        return foundBook.orElse(null);
+    }
+
+    @Transactional
     public void save(Book book, MultipartFile file) {
         if(!file.isEmpty()) {
             saveImageWithUniqueName(book, file);
         }
-        bookDao.save(book);
+        bookRepository.save(book);
     }
 
-
-    public void update(int id, Book book, MultipartFile file) {
+    @Transactional
+    public void update(int id, Book updatedBook, MultipartFile file) {
         if (!file.isEmpty()) {
-            saveImageWithUniqueName(book, file);
+            saveImageWithUniqueName(updatedBook, file);
         } else {
-            Book existingBook = bookDao.show(id);
-            book.setImagePath(existingBook.getImagePath());
+            Optional<Book> existingBook = bookRepository.findById(id);
+            existingBook.ifPresent(book -> updatedBook.setImagePath(book.getImagePath()));
         }
-        bookDao.update(id, book);
+        updatedBook.setBookId(id);
+        bookRepository.save(updatedBook);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        bookRepository.deleteById(id);
     }
 
 

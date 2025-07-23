@@ -5,6 +5,7 @@ import com.library.dao.MemberDao;
 import com.library.models.Journal;
 import com.library.models.Member;
 import com.library.services.JournalService;
+import com.library.services.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,32 +18,33 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/journals")
 public class JournalController {
-    private final JournalDao journalDao;
-    private final MemberDao memberDao;
-    private final JournalService journalService;
 
-    public JournalController(JournalDao journalDao, MemberDao memberDao, JournalService journalService) {
+    private final JournalDao journalDao;
+    private final JournalService journalService;
+    private final MemberService memberService;
+
+    public JournalController(JournalDao journalDao, JournalService journalService, MemberService memberService) {
+        this.memberService = memberService;
         this.journalDao = journalDao;
-        this.memberDao = memberDao;
         this.journalService = journalService;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("journals", journalDao.index());
+        model.addAttribute("journals", journalService.findAll());
         return ("journals/index");
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
-        model.addAttribute("journal", journalDao.show(id));
+        model.addAttribute("journal", journalService.findById(id));
 
         Optional<Member> journalOwner = journalDao.getJournalOwner(id);
 
         if (journalOwner.isPresent())
             model.addAttribute("owner", journalOwner.get());
         else
-            model.addAttribute("members", memberDao.index());
+            model.addAttribute("members", memberService.findAll());
 
         return ("journals/show");
     }
@@ -63,7 +65,7 @@ public class JournalController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("journal", journalDao.show(id));
+        model.addAttribute("journal", journalService.findById(id));
         return ("journals/edit");
     }
 
@@ -78,7 +80,7 @@ public class JournalController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        journalDao.delete(id);
+        journalService.delete(id);
         return ("redirect:/journals");
     }
 

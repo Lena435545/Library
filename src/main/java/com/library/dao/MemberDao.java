@@ -20,48 +20,11 @@ import java.util.List;
 public class MemberDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private final SessionFactory sessionFactory;
 
-    @Autowired
-    public MemberDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
+    public MemberDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.sessionFactory = sessionFactory;
     }
 
-    @Transactional(readOnly = true)
-    public List<Member> index() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select m from Member m", Member.class).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public Member show(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.find(Member.class, id);
-    }
-
-    @Transactional
-    public void save(Member member) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(member);
-    }
-
-    @Transactional
-    public void update(int id, Member updatedMember) {
-        Session session = sessionFactory.getCurrentSession();
-
-        Member memberToBeUpdated = session.find(Member.class, id);
-
-        memberToBeUpdated.setName(updatedMember.getName());
-        memberToBeUpdated.setSurname(updatedMember.getSurname());
-        memberToBeUpdated.setEmail(updatedMember.getEmail());
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.remove(session.find(Member.class, id));
-    }
 
     public List<Book> getBooksByMemberId(int id) {
         return jdbcTemplate.query("SELECT * FROM Book WHERE member_id = ?", new Object[]{id},

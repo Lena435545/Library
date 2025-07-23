@@ -16,48 +16,9 @@ import java.util.Optional;
 public class BookDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private final SessionFactory sessionFactory;
 
-    public BookDao(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
+    public BookDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Book> index() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select b from Book b", Book.class).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public Book show(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.find(Book.class, id);
-    }
-
-    @Transactional
-    public void save(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(book);
-    }
-
-    @Transactional
-    public void update(int id, Book updatedBook) {
-        Session session = sessionFactory.getCurrentSession();
-
-        Book bookToBeUpdated = session.find(Book.class, id);
-
-        bookToBeUpdated.setName(updatedBook.getName());
-        bookToBeUpdated.setAuthor(updatedBook.getAuthor());
-        bookToBeUpdated.setYear(updatedBook.getYear());
-        bookToBeUpdated.setImagePath(updatedBook.getImagePath());
-        bookToBeUpdated.setMemberId(updatedBook.getMemberId());
-    }
-
-    @Transactional
-    public void delete(int id) {
-       Session session = sessionFactory.getCurrentSession();
-       session.remove(session.find(Book.class, id));
     }
 
     public Optional<Member> getBookOwner(int id) {

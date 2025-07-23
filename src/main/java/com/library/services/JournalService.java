@@ -1,45 +1,65 @@
 package com.library.services;
 
-import com.library.dao.JournalDao;
 import com.library.models.Journal;
+import com.library.repositories.JournalRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.IIOException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class JournalService {
 
-    private final JournalDao journalDao;
+    private final JournalRepository journalRepository;
+
     @Value("${upload.dir}")
     private String uploadDir;
-
-    public JournalService(JournalDao journalDao) {
-        this.journalDao = journalDao;
+    public JournalService(JournalRepository journalRepository) {
+        this.journalRepository = journalRepository;
     }
 
+    public List<Journal> findAll(){
+        return journalRepository.findAll();
+    }
+
+    public Journal findById(int id)  {
+        Optional<Journal> foundJournal = journalRepository.findById(id);
+        return foundJournal.orElse(null);
+    }
+
+    @Transactional
     public void save(Journal journal, MultipartFile file) {
         if (!file.isEmpty()) {
             saveImageWithUniqueName(journal, file);
         }
-        journalDao.save(journal);
+        journalRepository.save(journal);
     }
 
-    public void update(int id, Journal journal, MultipartFile file) {
+    @Transactional
+    public void update(int id, Journal updatedJournal, MultipartFile file) {
         if (!file.isEmpty()) {
-            saveImageWithUniqueName(journal, file);
+            saveImageWithUniqueName(updatedJournal, file);
         } else {
-            Journal existingJournal = journalDao.show(id);
-            journal.setImagePath(existingJournal.getImagePath());
+            Optional<Journal> existingJournal = journalRepository.findById(id);
+            existingJournal.ifPresent(journal -> updatedJournal.setImagePath(journal.getImagePath()));
         }
-        journalDao.update(id, journal);
+        updatedJournal.setJournalId(id);
+        journalRepository.save(updatedJournal);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        journalRepository.deleteById(id);
     }
 
     private void saveImageWithUniqueName(Journal journal, MultipartFile file) {

@@ -2,44 +2,70 @@ package com.library.services;
 
 import com.library.dao.FilmDao;
 import com.library.models.Film;
+import com.library.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class FilmService {
 
     private final FilmDao filmDao;
-
-    public FilmService(FilmDao filmDao) {
-        this.filmDao = filmDao;
-    }
+    private final FilmRepository filmRepository;
 
     @Value("${upload.dir}")
     private String uploadDir;
 
+
+    public FilmService(FilmDao filmDao, FilmRepository filmRepository) {
+        this.filmDao = filmDao;
+        this.filmRepository = filmRepository;
+    }
+
+    public List<Film> findAll(){
+        return filmRepository.findAll();
+    }
+
+    public Film findById(int id) {
+        Optional<Film> foundFilm = filmRepository.findById(id);
+
+        return foundFilm.orElse(null);
+    }
+
+    @Transactional
     public void save(Film film, MultipartFile file) {
         if (!file.isEmpty()) {
             saveImageWithUniqueName(film, file);
         }
-        filmDao.save(film);
+        filmRepository.save(film);
     }
 
-    public void update(int id, Film film, MultipartFile file) {
+    @Transactional
+    public void update(int id, Film updatedFilm, MultipartFile file) {
         if (!file.isEmpty()) {
-            saveImageWithUniqueName(film, file);
+            saveImageWithUniqueName(updatedFilm, file);
         } else {
-            Film existingFilm = filmDao.show(id);
-            film.setImagePath(existingFilm.getImagePath());
+            Optional<Film> existingFilm = filmRepository.findById(id);
+            existingFilm.ifPresent(film -> updatedFilm.setImagePath(film.getImagePath()));
         }
-        filmDao.update(id, film);
+        updatedFilm.setFilmId(id);
+        filmRepository.save(updatedFilm);
+    }
+
+    @Transactional
+    public void delete(int id){
+        filmRepository.deleteById(id);
     }
 
 
