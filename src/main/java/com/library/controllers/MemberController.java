@@ -1,8 +1,6 @@
 package com.library.controllers;
 
-import com.library.dao.MemberDao;
 import com.library.models.Member;
-import com.library.repositories.MemberRepository;
 import com.library.services.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/members")
 public class MemberController {
-    private final MemberDao memberDao;
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberDao memberDao, MemberService memberService) {
-        this.memberDao = memberDao;
-        this.memberService = memberService;;
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @GetMapping
@@ -33,10 +27,11 @@ public class MemberController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("member", memberService.findById(id));
-        model.addAttribute("books", memberDao.getBooksByMemberId(id));
-        model.addAttribute("films", memberDao.getFilmsByMemberId(id));
-        model.addAttribute("journals", memberDao.getJournalsByMemberId(id));
+        Member member = memberService.findById(id);
+        model.addAttribute("member", member);
+        model.addAttribute("books", memberService.findBooksByOwner(member));
+        model.addAttribute("films", memberService.findFilmsByOwner(member));
+        model.addAttribute("journals", memberService.findJournalsByOwner(member));
         return ("members/show");
     }
 

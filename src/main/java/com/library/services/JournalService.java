@@ -1,6 +1,7 @@
 package com.library.services;
 
 import com.library.models.Journal;
+import com.library.models.Member;
 import com.library.repositories.JournalRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,27 @@ public class JournalService {
     @Transactional
     public void delete(int id) {
         journalRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Optional<Member> getJournalOwner(int id) {
+        return journalRepository.findById(id).map(Journal::getOwner);
+    }
+
+    @Transactional
+    public void release (int id) {
+        journalRepository.findById(id).ifPresent(journal -> {
+            journal.setOwner(null);
+            journalRepository.save(journal);
+        });
+    }
+
+    @Transactional
+    public void assign(int id, Member selectedMember) {
+        journalRepository.findById(id).ifPresent(journal -> {
+            journal.setOwner(selectedMember);
+            journalRepository.save(journal);
+        });
     }
 
     private void saveImageWithUniqueName(Journal journal, MultipartFile file) {

@@ -14,8 +14,9 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int filmId;
 
-    @Column(name="member_id")
-    private Integer memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private Member owner;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
@@ -40,12 +41,12 @@ public class Film {
         this.filmId = filmId;
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    public Member getOwner() {
+        return owner;
     }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    public void setOwner(Member owner) {
+        this.owner = owner;
     }
 
     public String getName() {
@@ -80,9 +81,9 @@ public class Film {
         this.imagePath = imagePath;
     }
 
-    public Film(int filmId, Integer memberId, String name, String director, int year, String imagePath) {
+    public Film(int filmId, Member owner, String name, String director, int year, String imagePath) {
         this.filmId = filmId;
-        this.memberId = memberId;
+        this.owner = owner;
         this.name = name;
         this.director = director;
         this.year = year;

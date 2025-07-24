@@ -14,8 +14,9 @@ public class Journal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int journalId;
 
-    @Column(name="member_id")
-    private Integer memberId;
+    @ManyToOne
+    @JoinColumn(name="member_id", referencedColumnName = "member_id")
+    private Member owner;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 50, message = "Name should be between 2 and 50 characters")
@@ -40,9 +41,9 @@ public class Journal {
     public Journal() {
     }
 
-    public Journal(int journalId, Integer memberId, String name, String thematic, int month, int year, String imagePath) {
+    public Journal(int journalId, Member owner, String name, String thematic, int month, int year, String imagePath) {
         this.journalId = journalId;
-        this.memberId = memberId;
+        this.owner = owner;
         this.name = name;
         this.thematic = thematic;
         this.month = month;
@@ -66,12 +67,12 @@ public class Journal {
         this.journalId = journalId;
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    public Member getOwner() {
+        return owner;
     }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    public void setOwner(Member owner) {
+        this.owner = owner;
     }
 
     public String getName() {

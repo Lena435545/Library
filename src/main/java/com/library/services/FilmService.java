@@ -1,7 +1,7 @@
 package com.library.services;
 
-import com.library.dao.FilmDao;
 import com.library.models.Film;
+import com.library.models.Member;
 import com.library.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,13 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class FilmService {
 
-    private final FilmDao filmDao;
     private final FilmRepository filmRepository;
 
     @Value("${upload.dir}")
     private String uploadDir;
 
 
-    public FilmService(FilmDao filmDao, FilmRepository filmRepository) {
-        this.filmDao = filmDao;
+    public FilmService(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;
     }
 
@@ -66,6 +64,26 @@ public class FilmService {
     @Transactional
     public void delete(int id){
         filmRepository.deleteById(id);
+    }
+    @Transactional
+    public Optional<Member> getFilmOwner(int id) {
+        return filmRepository.findById(id).map(Film::getOwner);
+    }
+
+    @Transactional
+    public void release(int id)  {
+        filmRepository.findById(id).ifPresent(film -> {
+            film.setOwner(null);
+            filmRepository.save(film);
+        });
+    }
+
+    @Transactional
+    public void assign(int id, Member selectedMember) {
+        filmRepository.findById(id).ifPresent(film -> {
+            film.setOwner(selectedMember);
+            filmRepository.save(film);
+        });
     }
 
 

@@ -1,6 +1,7 @@
 package com.library.services;
 
 import com.library.models.Book;
+import com.library.models.Member;
 import com.library.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,18 +29,18 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAll(){
+    public List<Book> findAll() {
         return bookRepository.findAll();
     }
 
-    public Book findById(int id){
+    public Book findById(int id) {
         Optional<Book> foundBook = bookRepository.findById(id);
         return foundBook.orElse(null);
     }
 
     @Transactional
     public void save(Book book, MultipartFile file) {
-        if(!file.isEmpty()) {
+        if (!file.isEmpty()) {
             saveImageWithUniqueName(book, file);
         }
         bookRepository.save(book);
@@ -62,6 +63,28 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    @Transactional
+    public Optional<Member> getBookOwner(int id) {
+        return bookRepository.findById(id).map(Book::getOwner);
+    }
+
+    @Transactional
+    public void release(int id) {
+        bookRepository.findById(id).ifPresent(book -> {
+            book.setOwner(null);
+            bookRepository.save(book);
+        });
+    }
+
+    @Transactional
+    public void assign(int id, Member selectedMember){
+        bookRepository.findById(id).ifPresent(
+                book -> {
+                    book.setOwner(selectedMember);
+                    bookRepository.save(book);
+                }
+        );
+    }
 
     private void saveImageWithUniqueName(Book book, MultipartFile file) {
         try {

@@ -15,8 +15,9 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
 
-    @Column(name="member_id")
-    private Integer memberId;
+    @ManyToOne
+    @JoinColumn(name="member_id", referencedColumnName = "member_id")
+    private Member owner;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
@@ -41,12 +42,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    public Member getOwner() {
+        return owner;
     }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    public void setOwner(Member owner) {
+        this.owner = owner;
     }
 
     public String getName() {
@@ -81,9 +82,9 @@ public class Book {
         this.imagePath = imagePath;
     }
 
-    public Book(int bookId, Integer memberId, String name, String author, int year, String imagePath) {
+    public Book(int bookId, Member owner, String name, String author, int year, String imagePath) {
         this.bookId = bookId;
-        this.memberId = memberId;
+        this.owner = owner;
         this.name = name;
         this.author = author;
         this.year = year;

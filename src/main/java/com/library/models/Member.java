@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
 @Entity
 @Table(name="member")
 public class Member {
@@ -26,6 +29,15 @@ public class Member {
     @Email(message = "E-mail should be valid")
     @Column(name="email")
     private String email;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Film> films;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Journal> journals;
 
     public String getSurname() {
         return surname;

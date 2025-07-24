@@ -1,6 +1,12 @@
 package com.library.services;
 
+import com.library.models.Book;
+import com.library.models.Film;
+import com.library.models.Journal;
 import com.library.models.Member;
+import com.library.repositories.BookRepository;
+import com.library.repositories.FilmRepository;
+import com.library.repositories.JournalRepository;
 import com.library.repositories.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +19,15 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BookRepository bookRepository;
+    private final FilmRepository filmRepository;
+    private final JournalRepository journalRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, BookRepository bookRepository, FilmRepository filmRepository, JournalRepository journalRepository) {
         this.memberRepository = memberRepository;
+        this.bookRepository = bookRepository;
+        this.filmRepository = filmRepository;
+        this.journalRepository = journalRepository;
     }
 
     public List<Member> findAll() {
@@ -37,8 +49,21 @@ public class MemberService {
         updatedMember.setMemberId(id);
         memberRepository.save(updatedMember);
     }
+
     @Transactional
     public void delete(int id) {
         memberRepository.deleteById(id);
+    }
+
+    public List<Book> findBooksByOwner(Member owner) {
+        return bookRepository.findByOwner(owner);
+    }
+
+    public List<Film> findFilmsByOwner(Member owner) {
+        return filmRepository.findByOwner(owner);
+    }
+
+    public List<Journal> findJournalsByOwner(Member owner) {
+        return journalRepository.findByOwner(owner);
     }
 }

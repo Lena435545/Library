@@ -1,7 +1,5 @@
 package com.library.controllers;
 
-import com.library.dao.JournalDao;
-import com.library.dao.MemberDao;
 import com.library.models.Journal;
 import com.library.models.Member;
 import com.library.services.JournalService;
@@ -19,13 +17,11 @@ import java.util.Optional;
 @RequestMapping("/journals")
 public class JournalController {
 
-    private final JournalDao journalDao;
     private final JournalService journalService;
     private final MemberService memberService;
 
-    public JournalController(JournalDao journalDao, JournalService journalService, MemberService memberService) {
+    public JournalController(JournalService journalService, MemberService memberService) {
         this.memberService = memberService;
-        this.journalDao = journalDao;
         this.journalService = journalService;
     }
 
@@ -39,7 +35,7 @@ public class JournalController {
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
         model.addAttribute("journal", journalService.findById(id));
 
-        Optional<Member> journalOwner = journalDao.getJournalOwner(id);
+        Optional<Member> journalOwner = journalService.getJournalOwner(id);
 
         if (journalOwner.isPresent())
             model.addAttribute("owner", journalOwner.get());
@@ -86,13 +82,13 @@ public class JournalController {
 
     @PatchMapping("/{id}/assign")
     public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember){
-        journalDao.assign(id, selectedMember);
+        journalService.assign(id, selectedMember);
         return "redirect:/journals/" + id;
     }
 
     @PatchMapping("/{id}/release")
     public String release(@PathVariable("id") int id){
-        journalDao.release(id);
+        journalService.release(id);
         return "redirect:/journals/" + id;
     }
 

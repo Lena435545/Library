@@ -1,7 +1,5 @@
 package com.library.controllers;
 
-import com.library.dao.FilmDao;
-import com.library.dao.MemberDao;
 import com.library.models.Film;
 import com.library.models.Member;
 import com.library.repositories.MemberRepository;
@@ -19,12 +17,10 @@ import java.util.Optional;
 @RequestMapping("/films")
 public class FilmController {
 
-    private final FilmDao filmDao;
     private final MemberRepository memberRepository;
     private final FilmService filmService;
 
-    public FilmController(FilmDao filmDao, MemberRepository memberRepository, FilmService filmService) {
-        this.filmDao = filmDao;
+    public FilmController(MemberRepository memberRepository, FilmService filmService) {
         this.memberRepository = memberRepository;
         this.filmService = filmService;
     }
@@ -39,7 +35,7 @@ public class FilmController {
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("member") Member member) {
         model.addAttribute("film", filmService.findById(id));
 
-        Optional<Member> filmOwner = filmDao.getFilmOwner(id);
+        Optional<Member> filmOwner = filmService.getFilmOwner(id);
 
         if (filmOwner.isPresent())
             model.addAttribute("owner", filmOwner.get());
@@ -88,13 +84,13 @@ public class FilmController {
 
     @PatchMapping("/{id}/release")
     public String release(@PathVariable("id") int id) {
-        filmDao.release(id);
+        filmService.release(id);
         return "redirect:/films/" + id;
     }
 
     @PatchMapping("/{id}/assign")
     public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember) {
-        filmDao.assign(id, selectedMember);
+        filmService.assign(id, selectedMember);
         return "redirect:/films/" + id;
     }
 }
