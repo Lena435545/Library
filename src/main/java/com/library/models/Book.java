@@ -1,37 +1,34 @@
 package com.library.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.format.annotation.NumberFormat;
 
 @Entity
-@Table(name="book")
+@Table(name = "book")
 public class Book {
     @Id
-    @Column(name="book_id")
+    @Column(name = "book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
 
     @ManyToOne
-    @JoinColumn(name="member_id", referencedColumnName = "member_id")
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member owner;
 
     @NotEmpty(message = "Name should not be empty")
-    @Size(min=2, max=50, message = "Name should be between 2 and 50 characters")
-    @Column(name="name")
+    @Size(min = 2, max = 50, message = "Name should be between 2 and 50 characters")
+    @Column(name = "name")
     private String name;
 
-    @Size(max=50, message = "Author should be less than 50 characters")
-    @Column(name="author")
+    @Size(max = 50, message = "Author should be less than 50 characters")
+    @Column(name = "author")
     private String author;
 
-    @Column(name="year")
+    @Column(name = "year")
     private int year;
 
-    @Column(name="image_path")
+    @Column(name = "image_path")
     private String imagePath;
 
     public int getBookId() {
@@ -90,6 +87,7 @@ public class Book {
         this.year = year;
         this.imagePath = imagePath;
     }
+
     public Book() {
     }
 }

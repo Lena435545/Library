@@ -52,7 +52,7 @@ public class JournalController {
 
     @PostMapping("/new")
     public String save(@ModelAttribute("journal") @Valid Journal journal, BindingResult bindingResult,
-                       @RequestParam("image")MultipartFile file) {
+                       @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("journals/new");
         journalService.save(journal, file);
@@ -81,13 +81,13 @@ public class JournalController {
     }
 
     @PatchMapping("/{id}/assign")
-    public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember){
+    public String assign(@PathVariable("id") int id, @ModelAttribute("member") Member selectedMember) {
         journalService.assign(id, selectedMember);
         return "redirect:/journals/" + id;
     }
 
     @PatchMapping("/{id}/release")
-    public String release(@PathVariable("id") int id){
+    public String release(@PathVariable("id") int id) {
         journalService.release(id);
         return "redirect:/journals/" + id;
     }

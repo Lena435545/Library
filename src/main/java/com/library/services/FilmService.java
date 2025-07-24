@@ -10,13 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,7 +27,7 @@ public class FilmService {
         this.filmRepository = filmRepository;
     }
 
-    public List<Film> findAll(){
+    public List<Film> findAll() {
         return filmRepository.findAll();
     }
 
@@ -63,16 +58,17 @@ public class FilmService {
     }
 
     @Transactional
-    public void delete(int id){
+    public void delete(int id) {
         filmRepository.deleteById(id);
     }
+
     @Transactional
     public Optional<Member> getFilmOwner(int id) {
         return filmRepository.findById(id).map(Film::getOwner);
     }
 
     @Transactional
-    public void release(int id)  {
+    public void release(int id) {
         filmRepository.findById(id).ifPresent(film -> {
             film.setOwner(null);
             filmRepository.save(film);

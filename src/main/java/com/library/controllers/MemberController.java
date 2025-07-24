@@ -26,7 +26,7 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model){
+    public String show(@PathVariable("id") int id, Model model) {
         Member member = memberService.findById(id);
         model.addAttribute("member", member);
         model.addAttribute("books", memberService.findBooksByOwner(member));
@@ -41,9 +41,9 @@ public class MemberController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
+    public String save(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ("members/new");
 
         memberService.save(member);
@@ -51,16 +51,16 @@ public class MemberController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id){
+    public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("member", memberService.findById(id));
         return ("members/edit");
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult,
-                         @PathVariable("id") int id){
+                         @PathVariable("id") int id) {
 
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ("members/edit");
 
         memberService.save(member);
@@ -68,7 +68,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id) {
         memberService.delete(id);
         return ("redirect:/members");
     }

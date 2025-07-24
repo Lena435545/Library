@@ -9,25 +9,25 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name="member")
+@Table(name = "member")
 public class Member {
     @Id
-    @Column(name="member_id")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int memberId;
 
     @NotEmpty(message = "Name should not be empty")
-    @Size(min=2, max=30, message = "Name should be between 2 and 30 characters")
-    @Column(name="name")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "Surname should not be empty")
-    @Size(min=2, max=30, message = "Surname should be between 2 and 30 characters")
-    @Column(name="surname")
+    @Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
+    @Column(name = "surname")
     private String surname;
 
     @Email(message = "E-mail should be valid")
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
     @OneToMany(mappedBy = "owner")

@@ -19,6 +19,7 @@ public class BookController {
 
     private final MemberService memberService;
     private final BookService bookService;
+
     public BookController(MemberService memberService, BookService bookService) {
         this.memberService = memberService;
         this.bookService = bookService;

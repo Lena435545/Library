@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class ImageUploadUtil {
-    public static String saveImageWithUniqueName (MultipartFile file, String uploadDir) throws IOException {
+    public static String saveImageWithUniqueName(MultipartFile file, String uploadDir) throws IOException {
         String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
                 .getFileName().toString();
         String fileName = UUID.randomUUID() + "_" + originalName;

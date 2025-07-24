@@ -52,7 +52,7 @@ public class FilmController {
 
     @PostMapping("/new")
     public String save(@ModelAttribute("film") @Valid Film film, BindingResult bindingResult,
-                       @RequestParam("image")MultipartFile file) {
+                       @RequestParam("image") MultipartFile file) {
         if (bindingResult.hasErrors())
             return ("films/new");
 
