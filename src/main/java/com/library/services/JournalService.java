@@ -3,6 +3,7 @@ package com.library.services;
 import com.library.models.Journal;
 import com.library.models.Member;
 import com.library.repositories.JournalRepository;
+import com.library.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,15 +26,16 @@ public class JournalService {
 
     @Value("${upload.dir}")
     private String uploadDir;
+
     public JournalService(JournalRepository journalRepository) {
         this.journalRepository = journalRepository;
     }
 
-    public List<Journal> findAll(){
+    public List<Journal> findAll() {
         return journalRepository.findAll();
     }
 
-    public Journal findById(int id)  {
+    public Journal findById(int id) {
         Optional<Journal> foundJournal = journalRepository.findById(id);
         return foundJournal.orElse(null);
     }
@@ -69,7 +71,7 @@ public class JournalService {
     }
 
     @Transactional
-    public void release (int id) {
+    public void release(int id) {
         journalRepository.findById(id).ifPresent(journal -> {
             journal.setOwner(null);
             journalRepository.save(journal);
@@ -86,17 +88,7 @@ public class JournalService {
 
     private void saveImageWithUniqueName(Journal journal, MultipartFile file) {
         try {
-            String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
-                    .getFileName().toString();
-
-            String fileName = UUID.randomUUID() + "_" + originalName;
-
-            Path uploadPath = Paths.get(uploadDir);
-            Files.createDirectories(uploadPath);
-
-            Path filePath = uploadPath.resolve(fileName);
-            file.transferTo(filePath);
-
+            String fileName = ImageUploadUtil.saveImageWithUniqueName(file, uploadDir);
             journal.setImagePath("images/" + fileName);
         } catch (IOException e) {
             System.err.println("Error during image upload: " + e.getMessage());

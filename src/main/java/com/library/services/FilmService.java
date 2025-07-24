@@ -3,6 +3,7 @@ package com.library.services;
 import com.library.models.Film;
 import com.library.models.Member;
 import com.library.repositories.FilmRepository;
+import com.library.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,18 +90,8 @@ public class FilmService {
 
     private void saveImageWithUniqueName(Film film, MultipartFile file) {
         try {
-            String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
-                    .getFileName().toString();
-            String fileName = UUID.randomUUID() + "_" + originalName;
-
-            Path uploadPath = Paths.get(uploadDir);
-            Files.createDirectories(uploadPath);
-
-            Path filePath = uploadPath.resolve(fileName);
-            file.transferTo(filePath);
-
+            String fileName = ImageUploadUtil.saveImageWithUniqueName(file, uploadDir);
             film.setImagePath("images/" + fileName);
-
         } catch (IOException e) {
             System.out.println("Error during image upload: " + e.getMessage());
         }

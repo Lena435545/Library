@@ -3,6 +3,7 @@ package com.library.services;
 import com.library.models.Book;
 import com.library.models.Member;
 import com.library.repositories.BookRepository;
+import com.library.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,7 +78,7 @@ public class BookService {
     }
 
     @Transactional
-    public void assign(int id, Member selectedMember){
+    public void assign(int id, Member selectedMember) {
         bookRepository.findById(id).ifPresent(
                 book -> {
                     book.setOwner(selectedMember);
@@ -88,16 +89,7 @@ public class BookService {
 
     private void saveImageWithUniqueName(Book book, MultipartFile file) {
         try {
-            String originalName = Paths.get(Objects.requireNonNull(file.getOriginalFilename()))
-                    .getFileName().toString();
-            String fileName = UUID.randomUUID() + "_" + originalName;
-
-            Path uploadPath = Paths.get(uploadDir);
-            Files.createDirectories(uploadPath);
-
-            Path filePath = uploadPath.resolve(fileName);
-            file.transferTo(filePath);
-
+            String fileName = ImageUploadUtil.saveImageWithUniqueName(file, uploadDir);
             book.setImagePath("images/" + fileName);
         } catch (IOException e) {
             System.err.println("Error during image upload: " + e.getMessage());
