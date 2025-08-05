@@ -1,126 +1,118 @@
-📚 Library Management System
-This is a Spring MVC + Thymeleaf web application for managing a library of books, movies, and journals.
-It allows creating, editing, deleting, and assigning library items to registered members.
+# Library Management System
 
-The application also supports a dark/light theme toggle, CRUD operations for different types of library items, and a check-out/check-in system for managing which member currently holds an item.
+A Spring MVC + Thymeleaf web application for managing a library of books, movies, and journals. This project is built for educational purposes and demonstrates modern Java web development, CRUD operations, theming, and integration with PostgreSQL.
 
-✨ Features
+---
 
-✅ Library Items Management
+## Features
 
-Books – create, edit, delete, view details, upload cover images
+- Library Items Management
+  - Books, Movies, Journals: Create, edit, delete, view details, upload images (covers/posters)
+  - Default placeholder image if no upload provided
 
-Movies – create, edit, delete, view details, upload posters
+- Member Management
+  - Register new members
+  - Assign books, movies, and journals to members (check-out)
+  - Release (check-in) items back to the library
 
-Journals – create, edit, delete, view details, upload covers
+- Dynamic Theme Switching
+  - Toggle between light and dark themes
+  - Preference stored in browser localStorage
 
-Default placeholder image when no file is uploaded
+- Server-Side Rendering with Thymeleaf
+  - Dynamic item/member views, forms, and error handling
 
-✅ Member Management
+---
 
-Create and manage library members
+## Tech Stack
 
-Assign books, movies, and journals to members
+- Java 17+
+- Spring MVC (Spring Boot)
+- Thymeleaf (server-side rendering)
+- Maven (build tool)
+- PostgreSQL (manual setup)
+- HTML, CSS, Vanilla JavaScript (frontend)
 
-Release (check-in) items back to the library
+---
 
-✅ Dynamic Theme Switching
+## Getting Started
 
-Toggle between light and dark theme
+### Requirements
 
-Theme preference stored in browser localStorage
+- Java 17 or higher
+- Maven
+- PostgreSQL
 
-✅ Server-Side Rendering with Thymeleaf
+### Database Setup
 
-Dynamic views for item listing, creation, editing, and details
-
-Validation error handling
-
-🛠️ Tech Stack
-Java 17+
-
-Spring MVC (part of Spring Boot)
-
-Thymeleaf (for server-side rendering)
-
-Maven (build tool)
-
-PostgreSQL (manual DB setup required)
-
-HTML + CSS + Vanilla JavaScript (for frontend)
-
-🚀 How to Run
-1️⃣ Requirements
-Java 17+
-
-Maven
-
-PostgreSQL
-
-2️⃣ Database Setup
-Create a PostgreSQL database manually, for example:
-
-sql
-Kopieren
-Bearbeiten
+Manually create a PostgreSQL database and user, for example:
+```sql
 CREATE DATABASE library_db;
+CREATE USER library_user WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE library_db TO library_user;
+```
 
-properties
-Kopieren
-Bearbeiten
+Add/update the following properties in your `application.properties`:
+```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/library_db
 spring.datasource.username=library_user
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
-3️⃣ Run the Application
+```
 
-🌐 Application Endpoints
-Books
-GET /books – list all books
+### Running the Application
 
-GET /books/new – create form
+```bash
+mvn spring-boot:run
+```
 
-POST /books/new – create new book
+---
 
-GET /books/{id} – view single book
+## Application Endpoints
 
-GET /books/{id}/edit – edit form
+### Books
 
-PATCH /books/{id} – update book
+- GET /books — List all books
+- GET /books/new — Create form
+- POST /books/new — Create new book
+- GET /books/{id} — View single book
+- GET /books/{id}/edit — Edit form
+- PATCH /books/{id} — Update book
+- DELETE /books/{id} — Delete book
+- PATCH /books/{id}/assign — Assign to member
+- PATCH /books/{id}/release — Release to library
 
-DELETE /books/{id} – delete book
+### Movies & Journals
 
-PATCH /books/{id}/assign – assign book to a member
+- Identical structure to books: /movies, /journals
 
-PATCH /books/{id}/release – release book back to library
+### Members
 
-Movies & Journals
-Identical structure to books (/movies, /journals)
+- GET /members — List all members
+- GET /members/{id} — Member details (with checked-out items)
 
-Members
-GET /members – list all members
+---
 
-GET /members/{id} – view member details (with checked-out items)
+## Current Status
 
-✅ Current Status
-✔️ CRUD implemented for Books, Movies, Journals
+- Full CRUD for Books, Movies, Journals
+- Assign/Release functionality for all item types
+- Manual PostgreSQL setup required
+- Dark/Light theme toggle implemented
 
-✔️ Assign/Release functionality working for all item types
+---
 
-✔️ Manual PostgreSQL DB setup required
+## Future Enhancements
 
-✔️ Dark/Light theme toggle implemented
+- User authentication (Spring Security)
+- Database migration support (Flyway/Liquibase)
+- Docker containerization
+- REST API endpoints for frontend integration (React/Vue)
+- Enhanced search & filter features
 
-🚧 Future Enhancements
- Add user authentication (e.g. Spring Security)
+---
 
- Improve database migration with Flyway/Liquibase
+## License
 
- Containerize with Docker for easier deployment
-
- Add REST API endpoints for React/Vue frontend integration
-
- Extend search & filter functionality
-
-📜 License
-This project is for educational purposes.
+This project is for educational purposes.  
+Feel free to use, modify, and learn from this repository.
