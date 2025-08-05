@@ -1,37 +1,37 @@
 # Library Management System
 
-A **Spring MVC + Thymeleaf** web application for managing a library of books, movies, and journals. This project is built for educational purposes and demonstrates modern Java web development, CRUD operations, theming, and integration with PostgreSQL.
+A Spring MVC + Thymeleaf web application for managing a library of books, movies, and journals. This project is built for educational purposes and demonstrates modern Java web development, CRUD operations, theming, and integration with PostgreSQL.
 
 ---
 
 ## Features
 
-- **Library Items Management**
+- Library Items Management
   - Books, Movies, Journals: Create, edit, delete, view details, upload images (covers/posters)
   - Default placeholder image if no upload provided
 
-- **Member Management**
+- Member Management
   - Register new members
   - Assign books, movies, and journals to members (check-out)
   - Release (check-in) items back to the library
 
-- **Dynamic Theme Switching**
+- Dynamic Theme Switching
   - Toggle between light and dark themes
   - Preference stored in browser localStorage
 
-- **Server-Side Rendering with Thymeleaf**
+- Server-Side Rendering with Thymeleaf
   - Dynamic item/member views, forms, and error handling
 
 ---
 
-## 🛠Tech Stack
+## Tech Stack
 
-- **Java 17+**
-- **Spring MVC** (Spring Boot)
-- **Thymeleaf** (server-side rendering)
-- **Maven** (build tool)
-- **PostgreSQL** (manual setup)
-- **HTML, CSS, Vanilla JavaScript** (frontend)
+- Java 17+
+- Spring MVC (Spring Boot)
+- Thymeleaf (server-side rendering)
+- Maven (build tool)
+- PostgreSQL (manual setup)
+- HTML, CSS, Vanilla JavaScript (frontend)
 
 ---
 
@@ -43,7 +43,7 @@ A **Spring MVC + Thymeleaf** web application for managing a library of books, mo
 - Maven
 - PostgreSQL
 
-### 2️⃣ Database Setup
+### Database Setup
 
 Manually create a PostgreSQL database and user, for example:
 ```sql
@@ -72,24 +72,24 @@ mvn spring-boot:run
 
 ### Books
 
-- `GET /books` — List all books
-- `GET /books/new` — Create form
-- `POST /books/new` — Create new book
-- `GET /books/{id}` — View single book
-- `GET /books/{id}/edit` — Edit form
-- `PATCH /books/{id}` — Update book
-- `DELETE /books/{id}` — Delete book
-- `PATCH /books/{id}/assign` — Assign to member
-- `PATCH /books/{id}/release` — Release to library
+- GET /books — List all books
+- GET /books/new — Create form
+- POST /books/new — Create new book
+- GET /books/{id} — View single book
+- GET /books/{id}/edit — Edit form
+- PATCH /books/{id} — Update book
+- DELETE /books/{id} — Delete book
+- PATCH /books/{id}/assign — Assign to member
+- PATCH /books/{id}/release — Release to library
 
 ### Movies & Journals
 
-- Identical structure to books: `/movies`, `/journals`
+- Identical structure to books: /movies, /journals
 
 ### Members
 
-- `GET /members` — List all members
-- `GET /members/{id}` — Member details (with checked-out items)
+- GET /members — List all members
+- GET /members/{id} — Member details (with checked-out items)
 
 ---
 
@@ -115,6 +115,4 @@ mvn spring-boot:run
 ## License
 
 This project is for educational purposes.  
-Feel free to use, modify, and learn from this repository!
-
----
+Feel free to use, modify, and learn from this repository.
