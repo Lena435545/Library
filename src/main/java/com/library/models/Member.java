@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,6 +33,10 @@ public class Member {
     @Column(name = "email")
     private String email;
 
+    @Column(name="date_of_birth")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfBirth;
+
     @OneToMany(mappedBy = "owner")
     private List<Book> books;
 
@@ -38,6 +45,14 @@ public class Member {
 
     @OneToMany(mappedBy = "owner")
     private List<Journal> journals;
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public String getSurname() {
         return surname;
@@ -71,11 +86,12 @@ public class Member {
         this.memberId = memberId;
     }
 
-    public Member(int clientId, String email, String surname, String name) {
-        this.memberId = clientId;
-        this.email = email;
-        this.surname = surname;
+    public Member(int memberId, String name, String surname, String email, LocalDate dateOfBirth) {
+        this.memberId = memberId;
         this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Member() {

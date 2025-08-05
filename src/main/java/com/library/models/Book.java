@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "book")
 public class Book {
@@ -30,6 +33,28 @@ public class Book {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @Column(name="taken_at")
+    private LocalDateTime takenAt;
+
+    @Transient
+    private boolean expired;
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
+
+    public LocalDateTime getTakenAt() {
+        return takenAt;
+    }
+
+    public void setTakenAt(LocalDateTime takenAt) {
+        this.takenAt = takenAt;
+    }
 
     public int getBookId() {
         return bookId;
@@ -79,13 +104,15 @@ public class Book {
         this.imagePath = imagePath;
     }
 
-    public Book(int bookId, Member owner, String name, String author, int year, String imagePath) {
+    public Book(int bookId, Member owner, String name, String author, int year, String imagePath, LocalDateTime takenAt, boolean expired) {
         this.bookId = bookId;
         this.owner = owner;
         this.name = name;
         this.author = author;
         this.year = year;
         this.imagePath = imagePath;
+        this.takenAt = takenAt;
+        this.expired = expired;
     }
 
     public Book() {
