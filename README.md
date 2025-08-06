@@ -15,7 +15,7 @@ The application allows users to:
 
 ---
 
-## Features in detail
+## Features
 
 ### Library Items Management
 
