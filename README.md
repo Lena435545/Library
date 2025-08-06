@@ -130,6 +130,7 @@ mvn test
 ```
 
 More tests are planned as the application evolves.
+---
 ## Project Structure
 
 ```
@@ -157,7 +158,7 @@ src/
 │            └── services/      # Unit tests for service layer classes         
 
 ```
-
+---
 ## Application Endpoints
 
 ### Books
@@ -219,9 +220,11 @@ src/
 ---
 
 
+
+
 ## UI Preview
 
-### Theme Comparison
+### Start page
 
 | Light Mode                           | Dark Mode                          |
 |--------------------------------------|------------------------------------|
@@ -231,27 +234,36 @@ src/
 
 ### Book List
 
-![Book List](screenshots/books_list.png)
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Light](screenshots/books_list_light.png) | ![Dark](screenshots/books_list_dark.png) |
 
 ---
 
 ### Book Detail
 
-![Book Detail](screenshots/book_detail.png)
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Light](screenshots/book_detail_light.png) | ![Dark](screenshots/book_detail_dark.png) |
 
 ---
 
 ### Edit Book Form
 
-![Edit Book](screenshots/book_edit.png)
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Light](screenshots/book_edit_light.png) | ![Dark](screenshots/book_edit_dark.png) |
 
 ---
 
 ### Member Detail
 
-![Member Detail](screenshots/member_detail.png)
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Light](screenshots/member_detail_light.png) | ![Dark](screenshots/member_detail_dark.png) |
 
 
+---
 ## License
 
 This project is for **educational use only**.  
