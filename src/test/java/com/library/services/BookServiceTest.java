@@ -99,7 +99,7 @@ public class BookServiceTest {
         assertEquals(member, book.getOwner());
         verify(bookRepository).save(book);
     }
-//
+
     @Test
     void testReleaseBook() {
         Member member = new Member();
