@@ -52,7 +52,7 @@ The application allows users to:
 | Template Engine   | Thymeleaf                       |
 | Build Tool        | Maven                           |
 | Frontend          | HTML5, CSS3, Vanilla JavaScript |
-| Testing           | JUnit (Service-Layer-Tests)     |
+| Testing           | JUnit (Service-Layer tests)     |
 
 ---
 
@@ -228,45 +228,47 @@ src/
 
 ## UI Preview
 
+
+
 ---
+### Start Page
 
-### Start page
+![Start Light](screenshots/light_mode.png)    
 
-| Light Mode                           | Dark Mode                          |
-|--------------------------------------|------------------------------------|
-| ![Light](screenshots/light_mode.png) | ![Dark](screenshots/dark_mode.png) |
+![Start Dark](screenshots/dark_mode.png)
 
 ---
 
 ### Book List
 
-| Light Mode                                 | Dark Mode                                |
-|--------------------------------------------|------------------------------------------|
-| ![Light](screenshots/books_list_light.png) | ![Dark](screenshots/books_list_dark.png) |
+![Book List Light](screenshots/books_list_light.png)    
+
+![Book List Dark](screenshots/books_list_dark.png)
 
 ---
 
 ### Book Detail
 
-| Light Mode                                  | Dark Mode                                 |
-|---------------------------------------------|-------------------------------------------|
-| ![Light](screenshots/book_detail_light.png) | ![Dark](screenshots/book_detail_dark.png) |
+![Book Detail Light](screenshots/book_detail_light.png)   
+
+![Book Detail Dark](screenshots/book_detail_dark.png)
 
 ---
 
 ### Edit Book Form
 
-| Light Mode                                | Dark Mode                               |
-|-------------------------------------------|-----------------------------------------|
-| ![Light](screenshots/book_edit_light.png) | ![Dark](screenshots/book_edit_dark.png) |
+![Edit Book Light](screenshots/book_edit_light.png)    
+
+![Edit Book Dark](screenshots/book_edit_dark.png)
 
 ---
 
 ### Member Detail
 
-| Light Mode                                    | Dark Mode                                   |
-|-----------------------------------------------|---------------------------------------------|
-| ![Light](screenshots/member_detail_light.png) | ![Dark](screenshots/member_detail_dark.png) |
+![Member Detail Light](screenshots/member_detail_light.png)    
+
+![Member Detail Dark](screenshots/member_detail_dark.png)
+
 
 ---
 
