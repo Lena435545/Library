@@ -3,7 +3,7 @@
 
 A learning-focused web application.  
 Created to explore CRUD development with multiple related entities using Java and Spring MVC.  
-Includes form handling with Thymeleaf, database integration with PostgreSQL, and basic unit testing using JUnit.
+Includes form handling with Thymeleaf, database integration with PostgreSQL, basic unit testing using JUnit, and frontend development with HTML, CSS, and Vanilla JS.
 
 The application allows users to:
 - manage books, movies, and journals (create, edit, delete),
