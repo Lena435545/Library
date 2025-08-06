@@ -1,17 +1,17 @@
-
 # Library Management System
 
 A learning-focused web application.  
 Created to explore CRUD development with multiple related entities using Java and Spring MVC.  
-Includes form handling with Thymeleaf, database integration with PostgreSQL, basic unit testing using JUnit, and frontend development with HTML, CSS, and Vanilla JS.
+Includes form handling with Thymeleaf, database integration with PostgreSQL, basic unit testing using JUnit, and
+frontend development with HTML, CSS, and Vanilla JS.
 
 The application allows users to:
+
 - manage books, movies, and journals (create, edit, delete),
 - upload and display cover images,
 - register library members,
 - assign and release items (check-out and return),
 - toggle between light and dark themes (stored in localStorage).
-
 
 ---
 
@@ -43,15 +43,15 @@ The application allows users to:
 
 ## Tech Stack
 
-| Layer           | Technology                |
-|-----------------|---------------------------|
-| Language        | Java 17+                  |
-| Backend         | Spring MVC                |
-| Template Engine | Thymeleaf                 |
-| Database        | PostgreSQL (manual setup) |
-| Build Tool      | Maven                     |
-| Frontend        | HTML, CSS, Vanilla JS     |
-| Testing         | JUnit  (basic service layer tests)    |
+| Layer           | Technology                         |
+|-----------------|------------------------------------|
+| Language        | Java 17+                           |
+| Backend         | Spring MVC                         |
+| Template Engine | Thymeleaf                          |
+| Database        | PostgreSQL (manual setup)          |
+| Build Tool      | Maven                              |
+| Frontend        | HTML, CSS, Vanilla JS              |
+| Testing         | JUnit  (basic service layer tests) |
 
 ---
 
@@ -68,9 +68,12 @@ The application allows users to:
 Manually create a PostgreSQL database and user:
 
 ```sql
-CREATE DATABASE library_db;
-CREATE USER your_username WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE library_db TO your_username;
+CREATE
+DATABASE library_db;
+CREATE
+USER your_username WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE
+library_db TO your_username;
 ```
 
 Add/update the following properties in your `application.properties`:
@@ -129,8 +132,8 @@ Replace `my-app` with the actual name of your WAR file (without the `.war` exten
 mvn test
 ```
 
-More tests are planned as the application evolves.
 ---
+
 ## Project Structure
 
 ```
@@ -158,7 +161,9 @@ src/
 │            └── services/      # Unit tests for service layer classes         
 
 ```
+
 ---
+
 ## Application Endpoints
 
 ### Books
@@ -177,7 +182,8 @@ src/
 
 ### Movies and Journals
 
-- The endpoints for managing movies and journals follow the same structure as books, using `/films` and `/journals` as base paths.
+- The endpoints for managing movies and journals follow the same structure as books, using `/films` and `/journals` as
+  base paths.
 
 ### Members
 
@@ -219,10 +225,9 @@ src/
 
 ---
 
-
-
-
 ## UI Preview
+
+---
 
 ### Start page
 
@@ -234,36 +239,36 @@ src/
 
 ### Book List
 
-| Light Mode | Dark Mode |
-|------------|-----------|
+| Light Mode                                 | Dark Mode                                |
+|--------------------------------------------|------------------------------------------|
 | ![Light](screenshots/books_list_light.png) | ![Dark](screenshots/books_list_dark.png) |
 
 ---
 
 ### Book Detail
 
-| Light Mode | Dark Mode |
-|------------|-----------|
+| Light Mode                                  | Dark Mode                                 |
+|---------------------------------------------|-------------------------------------------|
 | ![Light](screenshots/book_detail_light.png) | ![Dark](screenshots/book_detail_dark.png) |
 
 ---
 
 ### Edit Book Form
 
-| Light Mode | Dark Mode |
-|------------|-----------|
+| Light Mode                                | Dark Mode                               |
+|-------------------------------------------|-----------------------------------------|
 | ![Light](screenshots/book_edit_light.png) | ![Dark](screenshots/book_edit_dark.png) |
 
 ---
 
 ### Member Detail
 
-| Light Mode | Dark Mode |
-|------------|-----------|
+| Light Mode                                    | Dark Mode                                   |
+|-----------------------------------------------|---------------------------------------------|
 | ![Light](screenshots/member_detail_light.png) | ![Dark](screenshots/member_detail_dark.png) |
 
-
 ---
+
 ## License
 
 This project is for **educational use only**.  
