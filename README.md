@@ -261,7 +261,7 @@ Feel free to fork, clone, and modify as needed.
 
 ## Author
 
-Lena Manicheva – aspiring backend developer focused on clean Java code, testability, and real-world application design.
+Lena Manicheva
 
 - GitHub: [github.com/Lena435545](https://github.com/Lena435545)
 
