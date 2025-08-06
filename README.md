@@ -15,7 +15,7 @@ The application allows users to:
 
 ---
 
-## Features
+## Features in detail
 
 ### Library Items Management
 
@@ -43,15 +43,16 @@ The application allows users to:
 
 ## Tech Stack
 
-| Layer           | Technology                         |
-|-----------------|------------------------------------|
-| Language        | Java 17+                           |
-| Backend         | Spring MVC                         |
-| Template Engine | Thymeleaf                          |
-| Database        | PostgreSQL (manual setup)          |
-| Build Tool      | Maven                              |
-| Frontend        | HTML, CSS, Vanilla JS              |
-| Testing         | JUnit  (basic service layer tests) |
+| Layer             | Technology                      |
+|-------------------|---------------------------------|
+| Language          | Java 17+                        |
+| Backend Framework | Spring MVC                      |
+| Persistence       | Spring Data JPA, Hibernate      |
+| Database          | PostgreSQL                      |
+| Template Engine   | Thymeleaf                       |
+| Build Tool        | Maven                           |
+| Frontend          | HTML5, CSS3, Vanilla JavaScript |
+| Testing           | JUnit (Service-Layer-Tests)     |
 
 ---
 
