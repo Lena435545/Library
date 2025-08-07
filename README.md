@@ -85,8 +85,6 @@ db.url=jdbc:postgresql://localhost:5432/library_db
 db.username=your_username
 db.password=your_password
 upload.dir=your/absolute/path/to/images
-hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-hibernate.show_sql=true
 ```
 
 ### Running the Application

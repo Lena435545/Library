@@ -3,10 +3,8 @@ package com.library.services;
 import com.library.models.Book;
 import com.library.models.Member;
 import com.library.repositories.BookRepository;
-import com.library.utils.ImageUploadUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -27,7 +25,7 @@ public class BookServiceTest {
     }
 
     @Test
-    void testFindAllReturnsList() {
+    void findAllReturnsList() {
         Book book1 = new Book();
         book1.setName("Book1");
         Book book2 = new Book();
@@ -42,7 +40,7 @@ public class BookServiceTest {
     }
 
     @Test
-    void testFindByIdReturnsBookWhenExists() {
+    void findByIdReturnsBookWhenExists() {
         Book book = new Book();
         book.setBookId(1);
         book.setName("TestBook");
@@ -58,8 +56,8 @@ public class BookServiceTest {
     }
 
     @Test
-    void findByIdReturnsNullWhenBookNotFound(){
-        int bookId= 999;
+    void findByIdReturnsNullWhenBookNotFound() {
+        int bookId = 999;
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
 
         Book result = bookService.findById(bookId);
@@ -69,7 +67,7 @@ public class BookServiceTest {
     }
 
     @Test
-    void testSaveBookWhenImageFileIsEmpty() {
+    void saveBookWhenImageFileIsEmpty() {
         Book book = new Book();
         MultipartFile file = mock(MultipartFile.class);
         when(file.isEmpty()).thenReturn(true);
@@ -80,21 +78,77 @@ public class BookServiceTest {
         verify(file, times(1)).isEmpty();
     }
 
+    //TODO testSaveBookWhenImageFileIsNotEmpty - Integration-test(?)
 
     @Test
-    void testDeleteBook() {
-        bookService.delete(5);
-        verify(bookRepository, times(1)).deleteById(5);
+    void updateCopiesImagePathAndSavesBookWhenImageFileIsEmpty() {
+        int bookId = 1;
+        Book existingBook = new Book();
+        existingBook.setImagePath("images/existing.jpg");
+        Book updatedBook = new Book();
+
+        MultipartFile file = mock(MultipartFile.class);
+        when(file.isEmpty()).thenReturn(true);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(existingBook));
+
+        bookService.update(bookId, updatedBook, file);
+
+        assertEquals("images/existing.jpg", updatedBook.getImagePath());
+        assertEquals(bookId, updatedBook.getBookId());
+        verify(bookRepository).save(updatedBook);
     }
 
     @Test
-    void testAssignBookToMember() {
+    void deleteBookDeletesBookById() {
+        bookService.delete(5);
+
+        verify(bookRepository).deleteById(5);
+    }
+
+    @Test
+    void getBookOwnerReturnsMemberWhenBookHasOwner() {
+        Member member = new Member();
+        Book book = new Book();
+        book.setOwner(member);
+        int bookId = 1;
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+
+        Optional<Member> result = bookService.getBookOwner(bookId);
+
+        assertTrue(result.isPresent());
+        assertEquals(member, result.get());
+    }
+
+    @Test
+    void getBookOwnerReturnsEmptyWhenBookHasNoOwner(){
+        Book book = new Book();
+        int bookId = 1;
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+
+        Optional<Member> result = bookService.getBookOwner(bookId);
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getBookOwnerReturnsEmptyWhenBookNotFound() {
+        int bookId = 999;
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+
+        Optional<Member> result = bookService.getBookOwner(bookId);
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void assignSetsOwnerAndSavesBookWhenBookExists() {
         Book book = new Book();
         Member member = new Member();
+        int bookId = 1;
 
-        when(bookRepository.findById(1)).thenReturn(Optional.of(book));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
 
-        bookService.assign(1, member);
+        bookService.assign(bookId, member);
 
         assertEquals(member, book.getOwner());
         verify(bookRepository).save(book);
@@ -105,10 +159,11 @@ public class BookServiceTest {
         Member member = new Member();
         Book book = new Book();
         book.setOwner(member);
+        int bookId = 1;
 
-        when(bookRepository.findById(2)).thenReturn(Optional.of(book));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
 
-        bookService.release(2);
+        bookService.release(bookId);
 
         assertNull(book.getOwner());
         verify(bookRepository).save(book);
