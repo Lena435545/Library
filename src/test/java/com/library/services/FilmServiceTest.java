@@ -58,7 +58,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void findById_WhenBookNotFound_ReturnsNull() {
+    void findById_WhenFilmNotFound_ReturnsNull() {
         when(filmRepository.findById(nfFilmId))
                 .thenReturn(Optional.empty());
 
@@ -97,7 +97,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void deleteDeletesFilmById(){
+    void delete_WhenFilmExists_RemovesFilmById(){
         filmService.delete(filmId);
 
         verify(filmRepository, times(1)).deleteById(filmId);
@@ -127,7 +127,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void getFilmOwner_WhenBookNotFound_ReturnsEmpty(){
+    void getFilmOwner_WhenFilmNotFound_ReturnsEmpty(){
         when(filmRepository.findById(nfFilmId)).thenReturn(Optional.empty());
 
         Optional<Member> result = filmService.getFilmOwner(nfFilmId);
@@ -136,7 +136,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void assign_WhenFilmExists_SetsOwnerAndSaveBook(){
+    void assign_WhenFilmExists_SetsOwnerAndSavesFilm(){
         Film film = new Film();
         Member member = new Member();
         when(filmRepository.findById(filmId)).thenReturn(Optional.of(film));
